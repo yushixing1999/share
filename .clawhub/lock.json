@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "skills": {
+    "searxng": {
+      "version": "1.0.3",
+      "installedAt": 1772692921716
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1772701207406
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1772701213428
+    },
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1772701268218
+    },
+    "self-improving-agent": {
+      "version": "1.0.11",
+      "installedAt": 1772701278822
+    },
+    "proactive-agent": {
+      "version": "3.1.0",
+      "installedAt": 1772701443637
+    },
+    "product-roadmap": {
+      "version": "0.1.0",
+      "installedAt": 1773036429201
+    },
+    "project-planner": {
+      "version": "1.0.2",
+      "installedAt": 1773036481822
+    },
+    "competitive-analysis": {
+      "version": "0.1.0",
+      "installedAt": 1773037459685
+    },
+    "market-research": {
+      "version": "1.0.0",
+      "installedAt": 1773037461860
+    },
+    "prototype-generator": {
+      "version": "1.0.0",
+      "installedAt": 1773037464076
+    },
+    "ui-ux-design": {
+      "version": "1.0.0",
+      "installedAt": 1773037466640
+    },
+    "analytics": {
+      "version": "1.0.0",
+      "installedAt": 1773037468436
+    }
+  }
+}
