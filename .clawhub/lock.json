@@ -52,6 +52,22 @@
     "analytics": {
       "version": "1.0.0",
       "installedAt": 1773037468436
+    },
+    "tavily-search": {
+      "version": "1.0.0",
+      "installedAt": 1773047528195
+    },
+    "exa": {
+      "version": "0.0.2",
+      "installedAt": 1773048116084
+    },
+    "multi-search-engine": {
+      "version": "2.0.1",
+      "installedAt": 1773048130645
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1773048905818
     }
   }
 }
