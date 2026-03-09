@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同花顺暗盘资金功能正解报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3);
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+        .header .warning {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h2 {
+            color: #1a1a2e;
+            font-size: 26px;
+            margin: 40px 0 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #dc2626;
+        }
+        h3 {
+            color: #16213e;
+            font-size: 20px;
+            margin: 30px 0 15px;
+            padding-left: 12px;
+            border-left: 4px solid #dc2626;
+        }
+        p { margin-bottom: 16px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+        }
+        tr:nth-child(even) td { background: #f8fafc; }
+        .correct-box {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-left: 4px solid #10b981;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .wrong-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 4px solid #dc2626;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .feature-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .formula-box {
+            background: #1a1a2e;
+            color: #4ade80;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #dc2626, transparent);
+            margin: 40px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚠️ 更正说明：同花顺暗盘资金正解</h1>
+            <div class="subtitle">之前报告错误，此为更正版本</div>
+            <div class="warning">
+                <strong>重要更正：</strong> 暗盘资金<strong>不是</strong>盘后交易分析工具，而是<strong>交易时段内实时监测主力拆单隐蔽交易</strong>的指标。
+            </div>
+        </div>
+
+        <div class="content">
+
+            <div class="wrong-box">
+                <strong>❌ 我之前理解的错误：</strong>
+                <ul>
+                    <li>以为是分析 15:00-次日9:15 盘后交易的工具</li>
+                    <li>以为是监控盘后大单、隔夜挂单的功能</li>
+                    <li>以为是次日开盘预测工具</li>
+                </ul>
+            </div>
+
+            <div class="correct-box">
+                <strong>✅ 正确的定义：</strong>
+                <ul>
+                    <li><strong>暗盘资金是交易时段内（9:30-15:00）实时运行的指标</strong></li>
+                    <li>统计主力通过<strong>"拆单"</strong>行为（将大单拆成小单）进行买卖的净额</li>
+                    <li>捕捉主力<strong>隐蔽的、不易被发现</strong>的资金流向</li>
+                    <li>与明盘资金（公开的大单）形成互补</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <h2>📚 一、什么是暗盘资金（正解）</h2>
+
+            <h3>1.1 核心定义</h3>
+
+            <div class="formula-box">暗盘资金 = 主力通过拆单行为（将大单拆成小单）进行买卖的净额
+
+拆单：将一笔大单（如1000万）拆分成多笔小单（如10万×100笔）
+目的：避免被Level-2大单监控发现，隐蔽建仓/出货</div>
+
+            <p><strong>关键理解：</strong></p>
+            <ul>
+                <li><strong>明盘资金</strong>：公开的大单交易（&gt;100万），容易被监控</li>
+                <li><strong>暗盘资金</strong>：主力拆单后的小单交易，隐蔽性强，需要专门算法识别</li>
+                <li><strong>运行时段</strong>：交易时段内实时计算（9:30-11:30, 13:00-15:00）</li>
+            </ul>
+
+            <h3>1.2 为什么叫"暗盘"</h3>
+
+            <table>
+                <tr>
+                    <th>对比项</th>
+                    <th>明盘（公开）</th>
+                    <th>暗盘（隐蔽）</th>
+                </tr>
+                <tr>
+                    <td>单笔金额</td>
+                    <td>大单（&gt;100万）</td>
+                    <td>小单（&lt;50万）</td>
+                </tr>
+                <tr>
+                    <td>可见性</td>
+                    <td>Level-2明显可见</td>
+                    <td>隐藏在小单中</td>
+                </tr>
+                <tr>
+                    <td>主力意图</td>
+                    <td>公开操作</td>
+                    <td>隐蔽建仓/出货</td>
+                </tr>
+                <tr>
+                    <td>识别难度</td>
+                    <td>容易</td>
+                    <td>需要专门算法</td>
+                </tr>
+            </table>
+
+            <hr>
+
+            <h2>🔍 二、暗盘资金的计算原理</h2>
+
+            <h3>2.1 如何识别拆单行为</h3>
+
+            <div class="feature-card">
+                <h4>识别特征：</h4>
+                <ol>
+                    <li><strong>时间集中度</strong>：短时间内（如1分钟）出现多笔相似金额的小单</li>
+                    <li><strong>价格一致性</strong>：多笔小单以相同或相近价格成交</li>
+                    <li><strong>方向一致性</strong>：连续多笔同为买入或卖出</li>
+                    <li><strong>金额规律性</strong>：金额呈现规律性的拆分（如都是9.8万、9.9万）</li>
+                </ol>
+            </div>
+
+            <h3>2.2 指标展示形式</h3>
+
+            <p>在同花顺软件中，暗盘资金通常以<strong>副图指标</strong>形式展示：</p>
+
+            <table>
+                <tr>
+                    <th>显示元素</th>
+                    <th>含义</th>
+                </tr>
+                <tr>
+                    <td><strong>红色柱状</strong></td>
+                    <td>当日暗盘资金净流入（主力隐蔽吸筹）</td>
+                </tr>
+                <tr>
+                    <td><strong>绿色柱状</strong></td>
+                    <td>当日暗盘资金净流出（主力隐蔽出货）</td>
+                </tr>
+                <tr>
+                    <td><strong>柱状高度</strong></td>
+                    <td>资金流入/流出幅度，越高幅度越大</td>
+                </tr>
+                <tr>
+                    <td><strong>零轴</strong></td>
+                    <td>多空分界，红柱在上、绿柱在下</td>
+                </tr>
+            </table>
+
+            <hr>
+
+            <h2>📊 三、实战用法</h2>
+
+            <h3>3.1 五大经典信号</h3>
+
+            <div class="feature-card">
+                <h4>🟢 信号一：暗盘吸筹（看涨）</h4>
+                <p><strong>特征：</strong> K线横盘或微跌，但暗盘资金持续为红柱（流入）</p>
+                <p><strong>解读：</strong> 主力在低位通过拆单隐蔽吸筹，不引起市场注意</p>
+                <p><strong>策略：</strong> 关注突破信号，准备跟进</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🔴 信号二：暗盘出货（看跌）</h4>
+                <p><strong>特征：</strong> K线横盘或微涨，但暗盘资金持续为绿柱（流出）</p>
+                <p><strong>解读：</strong> 主力在高位通过拆单隐蔽出货</p>
+                <p><strong>策略：</strong> 警惕回调风险，考虑减仓</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>⚠️ 信号三：顶背离（危险）</h4>
+                <p><strong>特征：</strong> K线创新高，但暗盘资金为绿柱或红柱缩短</p>
+                <p><strong>解读：</strong> 价格上涨但主力暗地在出货</p>
+                <p><strong>策略：</strong> 顶部信号，考虑离场</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>💎 信号四：底背离（机会）</h4>
+                <p><strong>特征：</strong> K线创新低，但暗盘资金为红柱或绿柱缩短</p>
+                <p><strong>解读：</strong> 价格下跌但主力暗地在吸筹</p>
+                <p><strong>策略：</strong> 底部信号，关注反弹</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>🔄 信号五：多空分歧（观望）</h4>
+                <p><strong>特征：</strong> K线窄幅震荡，暗盘资金围绕零轴小幅波动</p>
+                <p><strong>解读：</strong> 主力方向不明，处于观察期</p>
+                <p><strong>策略：</strong> 观望为主，等待方向明确</p>
+            </div>
+
+            <hr>
+
+            <h2>⚖️ 四、与明盘资金的对比</h2>
+
+            <table>
+                <tr>
+                    <th>对比维度</th>
+                    <th>明盘资金（大单流向）</th>
+                    <th>暗盘资金（拆单统计）</th>
+                </tr>
+                <tr>
+                    <td>统计对象</td>
+                    <td>单笔&gt;100万的大单</td>
+                    <td>聚类后的小单组合</td>
+                </tr>
+                <tr>
+                    <td>主力意图</td>
+                    <td>公开操作（可能故意为之）</td>
+                    <td>隐蔽操作（真实意图）</td>
+                </tr>
+                <tr>
+                    <td>可靠性</td>
+                    <td>容易被主力利用（骗线）</td>
+                    <td>更接近真实资金动向</td>
+                </tr>
+                <tr>
+                    <td>使用场景</td>
+                    <td>确认趋势、追踪公开主力</td>
+                    <td>发现隐蔽建仓/出货、识别骗线</td>
+                </tr>
+            </table>
+
+            <div class="correct-box">
+                <strong>最佳实践：明盘+暗盘结合使用</strong>
+                <ul>
+                    <li>明盘资金净流入 + 暗盘资金净流入 → 🟢 真实上涨，可跟进</li>
+                    <li>明盘资金净流入 + 暗盘资金净流出 → ⚠️ 可能是骗线，谨慎</li>
+                    <li>明盘资金净流出 + 暗盘资金净流入 → 💎 主力隐蔽吸筹，关注</li>
+                    <li>明盘资金净流出 + 暗盘资金净流出 → 🔴 真实下跌，回避</li>
+                </ul>
+            </div>
+
+            <hr>
+
+            <h2>📝 五、总结</h2>
+
+            <div class="correct-box">
+                <strong>正确理解：</strong><br><br>
+                同花顺<strong>暗盘资金</strong>是交易时段内实时运行的技术指标，用于统计主力通过<strong>"拆单"</strong>（将大单拆成小单）进行隐蔽交易的净额。<br><br>
+                <strong>核心价值：</strong><br>
+                1. 发现主力隐蔽的建仓/出货行为<br>
+                2. 识别公开资金流向（明盘）背后的真实意图<br>
+                3. 与明盘资金结合，提高判断准确性<br><br>
+                <strong>不是</strong>：盘后交易分析工具、次日开盘预测工具
+            </div>
+
+            <div class="footer">
+                <p>🦞 <strong>更正报告完成</strong></p>
+                <p>感谢指出错误，已重新核实并更正</p>
+                <p>2026年3月9日</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
