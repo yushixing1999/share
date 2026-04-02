@@ -510,14 +510,14 @@
                     
                     <!-- 关键价格线 - 5分钟级别（阻力） -->
                     <line x1="20" y1="35" x2="340" y2="35" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="5,3"/>
-                    <rect x="280" y="22" width="75" height="18" rx="2" fill="#ff4757"/>
-                    <text x="286" y="34" font-size="11" fill="white" font-weight="bold">1720.00</text>
-                    <text x="20" y="34" font-size="11" fill="#ff4757" font-weight="bold">+1.9%</text>
+                    <rect x="20" y="22" width="110" height="18" rx="2" fill="#ff4757"/>
+                    <text x="26" y="34" font-size="10" fill="white">5分钟 1720</text>
+                    <text x="290" y="34" font-size="11" fill="#ff4757" font-weight="bold">+1.9%</text>
                     
                     <!-- 关键价格线 - 30分钟级别（阻力） -->
                     <line x1="20" y1="65" x2="340" y2="65" stroke="#ff4757" stroke-width="1" stroke-dasharray="4,2"/>
-                    <rect x="280" y="52" width="75" height="18" rx="2" fill="#ff4757" opacity="0.85"/>
-                    <text x="286" y="64" font-size="11" fill="white">1705.00</text>
+                    <rect x="20" y="52" width="115" height="18" rx="2" fill="#ff4757" opacity="0.85"/>
+                    <text x="26" y="64" font-size="10" fill="white">30分钟 1705</text>
                     
                     <!-- 当前价格标签（右上角） -->
                     <rect x="270" y="105" width="85" height="22" rx="2" fill="#ff4757"/>
@@ -525,14 +525,14 @@
                     
                     <!-- 关键价格线 - 2小时级别（支撑） -->
                     <line x1="20" y1="175" x2="340" y2="175" stroke="#2ed573" stroke-width="1" stroke-dasharray="4,2"/>
-                    <rect x="20" y="162" width="75" height="18" rx="2" fill="#2ed573" opacity="0.85"/>
-                    <text x="26" y="174" font-size="11" fill="white">1665.00</text>
+                    <rect x="20" y="162" width="110" height="18" rx="2" fill="#2ed573" opacity="0.85"/>
+                    <text x="26" y="174" font-size="10" fill="white">2小时 1665</text>
                     
                     <!-- 关键价格线 - 日级别（支撑） -->
                     <line x1="20" y1="215" x2="340" y2="215" stroke="#2ed573" stroke-width="1.5" stroke-dasharray="5,3"/>
-                    <rect x="20" y="202" width="75" height="18" rx="2" fill="#2ed573"/>
-                    <text x="26" y="214" font-size="11" fill="white">1650.00</text>
-                    <text x="280" y="214" font-size="11" fill="#2ed573" font-weight="bold">-2.3%</text>
+                    <rect x="20" y="202" width="95" height="18" rx="2" fill="#2ed573"/>
+                    <text x="26" y="214" font-size="10" fill="white">日级别 1650</text>
+                    <text x="285" y="214" font-size="11" fill="#2ed573" font-weight="bold">-2.3%</text>
                     
                     <!-- 昨收价标签 -->
                     <text x="20" y="115" font-size="11" fill="#999">1660.00</text>
@@ -557,58 +557,70 @@
                     <!-- CVD零轴线 -->
                     <line x1="20" y1="295" x2="340" y2="295" stroke="#ccc" stroke-width="1"/>
                     
-                    <!-- CVD指标（Delta累计） -->
+                    <!-- CVD指标（Delta累计 - 连续走势像K线） -->
                     <defs>
-                        <linearGradient id="cvdRed" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:0.9" />
-                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:0.6" />
+                        <linearGradient id="cvdLineRed" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
                         </linearGradient>
-                        <linearGradient id="cvdGreen" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#2ed573;stop-opacity:0.9" />
-                            <stop offset="100%" style="stop-color:#2ed573;stop-opacity:0.6" />
+                        <linearGradient id="cvdLineGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#2ed573;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#51cf66;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="cvdAreaRed" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:0.25" />
+                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:0" />
+                        </linearGradient>
+                        <linearGradient id="cvdAreaGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2ed573;stop-opacity:0.25" />
+                            <stop offset="100%" style="stop-color:#2ed573;stop-opacity:0" />
                         </linearGradient>
                     </defs>
                     
-                    <!-- CVD柱（类似K线的CVD指标） -->
+                    <!-- CVD连续走势线（像K线一样） -->
                     <g transform="translate(0, 250)">
-                        <!-- 集合竞价阶段 -->
-                        <rect x="20" y="35" width="8" height="25" fill="url(#cvdRed)"/>
-                        <rect x="32" y="28" width="8" height="32" fill="url(#cvdRed)"/>
-                        <rect x="44" y="22" width="8" height="38" fill="url(#cvdRed)"/>
-                        <rect x="56" y="30" width="8" height="30" fill="url(#cvdGreen)"/>
-                        <rect x="68" y="20" width="8" height="40" fill="url(#cvdRed)"/>
+                        <!-- CVD上升阶段填充（正区域） -->
+                        <path d="M 20 40 L 35 35 L 50 28 L 65 32 L 80 25 L 95 20 L 110 15 L 125 12 L 140 18 L 155 14 L 170 22 L 185 26 L 200 30 L 215 35 L 230 40 L 245 38 L 260 32 L 275 28 L 290 24 L 305 20 L 320 18 L 320 45 L 20 45 Z" 
+                              fill="url(#cvdAreaRed)"/>
                         
-                        <!-- 连续竞价 - 上升阶段（CVD上升） -->
-                        <rect x="85" y="18" width="6" height="42" fill="url(#cvdRed)"/>
-                        <rect x="95" y="15" width="6" height="45" fill="url(#cvdRed)"/>
-                        <rect x="105" y="12" width="6" height="48" fill="url(#cvdRed)"/>
-                        <rect x="115" y="10" width="6" height="50" fill="url(#cvdRed)"/>
-                        <rect x="125" y="8" width="6" height="52" fill="url(#cvdRed)"/>
-                        <rect x="135" y="10" width="6" height="50" fill="url(#cvdGreen)"/>
-                        <rect x="145" y="12" width="6" height="48" fill="url(#cvdRed)"/>
-                        <rect x="155" y="15" width="6" height="45" fill="url(#cvdGreen)"/>
+                        <!-- CVD下降阶段填充（负区域） -->
+                        <path d="M 200 45 L 215 50 L 230 55 L 245 52 L 260 48 L 275 45 L 290 42 L 305 40 L 320 38 L 320 55 L 200 55 Z" 
+                              fill="url(#cvdAreaGreen)"/>
                         
-                        <!-- 顶背离区域（价格新高，CVD未新高） -->
-                        <rect x="165" y="18" width="6" height="42" fill="url(#cvdRed)"/>
-                        <rect x="175" y="22" width="6" height="38" fill="url(#cvdGreen)"/>
-                        <rect x="185" y="25" width="6" height="35" fill="url(#cvdRed)"/>
-                        <rect x="195" y="28" width="6" height="32" fill="url(#cvdGreen)"/>
+                        <!-- CVD走势线（连续线像K线） -->
+                        <path d="M 20 40 L 35 35 L 50 28 L 65 32 L 80 25 L 95 20 L 110 15 L 125 12 L 140 18 L 155 14 L 170 22 L 185 26 L 200 30 L 215 35 L 230 40 L 245 38 L 260 32 L 275 28 L 290 24 L 305 20 L 320 18" 
+                              fill="none" stroke="url(#cvdLineRed)" stroke-width="2"/>
                         
-                        <!-- 下降阶段 -->
-                        <rect x="205" y="32" width="6" height="28" fill="url(#cvdGreen)"/>
-                        <rect x="215" y="38" width="6" height="22" fill="url(#cvdRed)"/>
-                        <rect x="225" y="45" width="6" height="15" fill="url(#cvdGreen)"/>
+                        <!-- CVD下跌段 -->
+                        <path d="M 200 30 L 215 50 L 230 55 L 245 52 L 260 48 L 275 45 L 290 42 L 305 40 L 320 38" 
+                              fill="none" stroke="url(#cvdLineGreen)" stroke-width="2"/>
                         
-                        <!-- 底背离区域（价格新低，CVD未新低） -->
-                        <rect x="235" y="40" width="6" height="20" fill="url(#cvdRed)"/>
-                        <rect x="245" y="35" width="6" height="25" fill="url(#cvdGreen)"/>
-                        <rect x="255" y="30" width="6" height="30" fill="url(#cvdRed)"/>
-                        <rect x="265" y="32" width="6" height="28" fill="url(#cvdGreen)"/>
-                        <rect x="275" y="28" width="6" height="32" fill="url(#cvdRed)"/>
-                        <rect x="285" y="25" width="6" height="35" fill="url(#cvdGreen)"/>
-                        <rect x="295" y="22" width="6" height="38" fill="url(#cvdRed)"/>
-                        <rect x="305" y="20" width="6" height="40" fill="url(#cvdGreen)"/>
-                        <rect x="315" y="18" width="6" height="42" fill="url(#cvdRed)"/>
+                        <!-- CVD K线实体（每分钟的K线） -->
+                        <!-- 第一组（上升） -->
+                        <rect x="18" y="38" width="8" height="5" fill="#ff4757"/>
+                        <rect x="33" y="33" width="8" height="4" fill="#ff4757"/>
+                        <rect x="48" y="26" width="8" height="4" fill="#ff4757"/>
+                        <rect x="63" y="30" width="8" height="4" fill="#2ed573"/>
+                        <rect x="78" y="23" width="8" height="4" fill="#ff4757"/>
+                        <rect x="93" y="18" width="8" height="4" fill="#ff4757"/>
+                        <rect x="108" y="13" width="8" height="4" fill="#ff4757"/>
+                        <rect x="123" y="10" width="8" height="4" fill="#ff4757"/>
+                        <rect x="138" y="16" width="8" height="4" fill="#2ed573"/>
+                        <rect x="153" y="12" width="8" height="4" fill="#ff4757"/>
+                        
+                        <!-- 第二组（顶背离） -->
+                        <rect x="168" y="20" width="8" height="4" fill="#ff4757"/>
+                        <rect x="183" y="24" width="8" height="4" fill="#2ed573"/>
+                        <rect x="198" y="28" width="8" height="4" fill="#ff4757"/>
+                        
+                        <!-- 第三组（底背离） -->
+                        <rect x="213" y="48" width="8" height="4" fill="#2ed573"/>
+                        <rect x="228" y="53" width="8" height="4" fill="#ff4757"/>
+                        <rect x="243" y="50" width="8" height="4" fill="#2ed573"/>
+                        <rect x="258" y="46" width="8" height="4" fill="#ff4757"/>
+                        <rect x="273" y="43" width="8" height="4" fill="#2ed573"/>
+                        <rect x="288" y="40" width="8" height="4" fill="#ff4757"/>
+                        <rect x="303" y="38" width="8" height="4" fill="#2ed573"/>
                     </g>
                     
                     <!-- CVD标签 -->
