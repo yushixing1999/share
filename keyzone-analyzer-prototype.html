@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Keyzone 关键位置分析 - 同花顺风格</title>
+    <title>订单流盯盘分析 - 同花顺风格</title>
     <style>
         * {
             margin: 0;
@@ -192,7 +192,7 @@
 
         /* K线图 + Keyzone */
         .chart-container {
-            height: 280px;
+            height: 360px;
             background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
             border-radius: 8px;
             position: relative;
@@ -537,7 +537,7 @@
     <div class="header">
         <div class="header-top">
             <div class="back-btn">←</div>
-            <div class="header-title">Keyzone 关键位置</div>
+            <div class="header-title">订单流盯盘分析</div>
             <div class="header-actions">
                 <span>⋮</span>
             </div>
@@ -589,59 +589,169 @@
             </div>
         </div>
 
-        <!-- K线图 + Keyzone 标记 -->
+        <!-- K线蜡烛图 + 关键价格 + Delta -->
         <div class="card">
             <div class="card-title">
                 <div class="icon"></div>
-                走势图 & Keyzone
+                K线走势 & 关键价格 & Delta
             </div>
             <div class="chart-container">
-                <svg class="chart-svg" viewBox="0 0 360 240">
+                <svg class="chart-svg" viewBox="0 0 360 340">
                     <defs>
-                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
+                        <linearGradient id="candleRed" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:1" />
                         </linearGradient>
-                        <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:0.2" />
-                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:0" />
+                        <linearGradient id="candleGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#51cf66;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2ed573;stop-opacity:1" />
                         </linearGradient>
                     </defs>
                     
-                    <!-- 网格线 -->
-                    <line x1="20" y1="40" x2="340" y2="40" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="100" x2="340" y2="100" stroke="#f0f0f0" stroke-width="1"/>
+                    <!-- 分隔线 -->
+                    <line x1="20" y1="210" x2="340" y2="210" stroke="#e0e0e0" stroke-width="1"/>
+                    <text x="26" y="222" font-size="11" fill="#999">Delta</text>
+                    
+                    <!-- K线部分网格线 -->
+                    <line x1="20" y1="25" x2="340" y2="25" stroke="#f0f0f0" stroke-width="1"/>
+                    <line x1="20" y1="70" x2="340" y2="70" stroke="#f0f0f0" stroke-width="1"/>
+                    <line x1="20" y1="115" x2="340" y2="115" stroke="#f0f0f0" stroke-width="1"/>
                     <line x1="20" y1="160" x2="340" y2="160" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="220" x2="340" y2="220" stroke="#f0f0f0" stroke-width="1"/>
                     
-                    <!-- Keyzone 阻力位 -->
-                    <rect x="20" y="35" width="320" height="20" fill="rgba(255,71,87,0.08)" stroke="#ff4757" stroke-width="1" stroke-dasharray="4,2"/>
-                    <text x="28" y="48" font-size="10" fill="#ff4757">阻力 1720-1735</text>
+                    <!-- 关键价格线 - 阻力位 -->
+                    <line x1="20" y1="30" x2="340" y2="30" stroke="#ff4757" stroke-width="2" stroke-dasharray="6,4"/>
+                    <rect x="20" y="17" width="100" height="18" rx="4" fill="rgba(255,71,87,0.9)"/>
+                    <text x="26" y="29" font-size="11" fill="white">阻力 1728</text>
                     
-                    <!-- Keyzone 支撑位 1 -->
-                    <rect x="20" y="95" width="320" height="20" fill="rgba(46,213,115,0.08)" stroke="#2ed573" stroke-width="1" stroke-dasharray="4,2"/>
-                    <text x="28" y="108" font-size="10" fill="#2ed573">支撑 1650-1665</text>
+                    <!-- 关键价格线 - 当前价格 -->
+                    <line x1="20" y1="85" x2="340" y2="85" stroke="#ff6b35" stroke-width="1.5" stroke-dasharray="4,2"/>
+                    <rect x="270" y="72" width="70" height="18" rx="4" fill="rgba(255,107,53,0.9)"/>
+                    <text x="276" y="84" font-size="11" fill="white">现价 1688</text>
                     
-                    <!-- Keyzone 突破位 -->
-                    <rect x="20" y="155" width="320" height="20" fill="rgba(255,107,53,0.08)" stroke="#ff6b35" stroke-width="1" stroke-dasharray="4,2"/>
-                    <text x="28" y="168" font-size="10" fill="#ff6b35">突破 1600-1615</text>
+                    <!-- 关键价格线 - 支撑位1 -->
+                    <line x1="20" y1="135" x2="340" y2="135" stroke="#2ed573" stroke-width="2" stroke-dasharray="6,4"/>
+                    <rect x="20" y="122" width="100" height="18" rx="4" fill="rgba(46,213,115,0.9)"/>
+                    <text x="26" y="134" font-size="11" fill="white">支撑 1658</text>
                     
-                    <!-- K线走势 -->
-                    <path d="M 20 180 L 50 170 L 80 175 L 110 150 L 140 140 L 170 130 L 200 120 L 230 110 L 260 115 L 290 100 L 320 95 L 340 90" 
-                          fill="none" stroke="url(#lineGradient)" stroke-width="2.5"/>
+                    <!-- 关键价格线 - 支撑位2 -->
+                    <line x1="20" y1="185" x2="340" y2="185" stroke="#2ed573" stroke-width="2" stroke-dasharray="6,4"/>
+                    <rect x="20" y="172" width="100" height="18" rx="4" fill="rgba(46,213,115,0.9)"/>
+                    <text x="26" y="184" font-size="11" fill="white">支撑 1608</text>
                     
-                    <!-- 填充区域 -->
-                    <path d="M 20 180 L 50 170 L 80 175 L 110 150 L 140 140 L 170 130 L 200 120 L 230 110 L 260 115 L 290 100 L 320 95 L 340 90 L 340 220 L 20 220 Z" 
-                          fill="url(#areaGradient)"/>
+                    <!-- 蜡烛图数据 - 过去15根K线 -->
+                    <!-- 第1根（最左边） -->
+                    <line x1="40" y1="150" x2="40" y2="180" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="34" y="155" width="12" height="20" rx="1" fill="url(#candleGreen)"/>
                     
-                    <!-- 当前价格线 -->
-                    <line x1="20" y1="90" x2="340" y2="90" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="3,3"/>
-                    <circle cx="330" cy="90" r="4" fill="#ff4757"/>
+                    <!-- 第2根 -->
+                    <line x1="60" y1="145" x2="60" y2="175" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="54" y="148" width="12" height="22" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第3根 -->
+                    <line x1="80" y1="140" x2="80" y2="170" stroke="#ff4757" stroke-width="1"/>
+                    <rect x="74" y="142" width="12" height="24" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第4根 -->
+                    <line x1="100" y1="135" x2="100" y2="165" stroke="#ff4757" stroke-width="1"/>
+                    <rect x="94" y="138" width="12" height="22" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第5根 -->
+                    <line x1="120" y1="130" x2="120" y2="160" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="114" y="135" width="12" height="18" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第6根 -->
+                    <line x1="140" y1="125" x2="140" y2="155" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="134" y="130" width="12" height="20" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第7根 -->
+                    <line x1="160" y1="120" x2="160" y2="145" stroke="#ff4757" stroke-width="1"/>
+                    <rect x="154" y="123" width="12" height="18" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第8根 -->
+                    <line x1="180" y1="115" x2="180" y2="140" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="174" y="118" width="12" height="18" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第9根 -->
+                    <line x1="200" y1="105" x2="200" y2="130" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="194" y="108" width="12" height="18" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第10根 -->
+                    <line x1="220" y1="100" x2="220" y2="125" stroke="#ff4757" stroke-width="1"/>
+                    <rect x="214" y="103" width="12" height="18" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第11根 -->
+                    <line x1="240" y1="95" x2="240" y2="120" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="234" y="98" width="12" height="17" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第12根 -->
+                    <line x1="260" y1="88" x2="260" y2="115" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="254" y="90" width="12" height="20" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第13根 -->
+                    <line x1="280" y1="82" x2="280" y2="108" stroke="#ff4757" stroke-width="1"/>
+                    <rect x="274" y="85" width="12" height="18" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第14根 -->
+                    <line x1="300" y1="78" x2="300" y2="102" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="294" y="80" width="12" height="18" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第15根（最新） -->
+                    <line x1="320" y1="72" x2="320" y2="95" stroke="#2ed573" stroke-width="1"/>
+                    <rect x="314" y="75" width="12" height="16" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- Delta 红绿柱（从零轴210开始） -->
+                    <!-- 第1根 -->
+                    <rect x="34" y="200" width="12" height="10" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第2根 -->
+                    <rect x="54" y="195" width="12" height="15" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第3根 -->
+                    <rect x="74" y="210" width="12" height="18" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第4根 -->
+                    <rect x="94" y="210" width="12" height="12" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第5根 -->
+                    <rect x="114" y="192" width="12" height="18" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第6根 -->
+                    <rect x="134" y="188" width="12" height="22" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第7根 -->
+                    <rect x="154" y="210" width="12" height="15" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第8根 -->
+                    <rect x="174" y="185" width="12" height="25" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第9根 - Delta爆量 -->
+                    <rect x="194" y="170" width="12" height="40" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第10根 -->
+                    <rect x="214" y="210" width="12" height="14" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第11根 -->
+                    <rect x="234" y="180" width="12" height="30" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第12根 -->
+                    <rect x="254" y="175" width="12" height="35" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第13根 -->
+                    <rect x="274" y="210" width="12" height="16" rx="1" fill="url(#candleRed)"/>
+                    
+                    <!-- 第14根 -->
+                    <rect x="294" y="182" width="12" height="28" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- 第15根（最新）- 被动吸筹 -->
+                    <rect x="314" y="178" width="12" height="32" rx="1" fill="url(#candleGreen)"/>
+                    
+                    <!-- Delta 零轴线 -->
+                    <line x1="20" y1="210" x2="340" y2="210" stroke="#999" stroke-width="0.5"/>
                     
                     <!-- 时间标签 -->
-                    <text x="20" y="235" font-size="10" fill="#999">-5天</text>
-                    <text x="180" y="235" font-size="10" fill="#999">今天</text>
-                    <text x="320" y="235" font-size="10" fill="#999">+5天</text>
+                    <text x="20" y="335" font-size="10" fill="#999">-15天</text>
+                    <text x="170" y="335" font-size="10" fill="#999">-7天</text>
+                    <text x="310" y="335" font-size="10" fill="#ff6b35">今天</text>
                 </svg>
             </div>
         </div>
@@ -777,25 +887,41 @@
                 <div class="alert-item">
                     <div class="alert-icon support">🎯</div>
                     <div class="alert-content">
-                        <div class="alert-title">接近支撑位</div>
-                        <div class="alert-desc">价格 1668.50 接近支撑区间 1650-1665</div>
+                        <div class="alert-title">支撑位 1658 - 被动买单吸筹</div>
+                        <div class="alert-desc">
+                            价格触及 1658 关键支撑位，盘口出现被动买单密集挂单，买一至买五累计挂单 8.2 万手，Delta 1 分钟内流入 +1.5 万，疑似机构在支撑位吸筹。
+                        </div>
                         <div class="alert-time">今天 14:32</div>
                     </div>
                 </div>
                 <div class="alert-item">
                     <div class="alert-icon resistance">⚠️</div>
                     <div class="alert-content">
-                        <div class="alert-title">测试阻力位</div>
-                        <div class="alert-desc">价格 1715.00 测试阻力区间 1720-1735</div>
+                        <div class="alert-title">阻力位 1728 - 主动多单测试</div>
+                        <div class="alert-desc">
+                            价格接近 1728 阻力位，盘口出现主动多单连续扫货，5 分钟内主动买入成交 3.6 万手，Delta 爆量 +2.8 万，但卖一位置有 2.1 万手大单压盘，需观察能否突破。
+                        </div>
                         <div class="alert-time">今天 10:15</div>
                     </div>
                 </div>
                 <div class="alert-item">
                     <div class="alert-icon breakout">🚀</div>
                     <div class="alert-content">
-                        <div class="alert-title">放量突破确认</div>
-                        <div class="alert-desc">Volume 放大 2.3 倍，突破 1680 关键位</div>
+                        <div class="alert-title">关键位 1680 - 放量突破确认</div>
+                        <div class="alert-desc">
+                            价格突破 1680 关键位，Volume 放大 2.3 倍，主动多单占比 78%，Delta 持续流入 +5.2 万，卖盘压单被快速吃掉，突破有效，可关注回踩机会。
+                        </div>
                         <div class="alert-time">昨天 15:22</div>
+                    </div>
+                </div>
+                <div class="alert-item">
+                    <div class="alert-icon support">💰</div>
+                    <div class="alert-content">
+                        <div class="alert-title">支撑位 1608 - 大单托底</div>
+                        <div class="alert-desc">
+                            价格下探 1608 前期支撑位，买一位置突然出现 5.8 万手超级大单托底，随后 3 分钟内快速拉升 2.1%，Delta 由负转正，显示主力护盘意图明显。
+                        </div>
+                        <div class="alert-time">3天前 09:48</div>
                     </div>
                 </div>
             </div>
