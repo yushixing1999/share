@@ -125,91 +125,70 @@
         /* 卡片通用样式 */
         .card {
             background: white;
-            padding: 12px 16px;
-            margin-bottom: 8px;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
         .card-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .card-title .icon {
-            width: 3px;
-            height: 14px;
-            background: #e63946;
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
             border-radius: 2px;
         }
 
-        /* Delta & Volume 概览 */
-        .metrics-overview {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
+        /* 分时图容器 */
+        .chart-container {
+            height: 320px;
+            background: #ffffff;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            padding: 12px 16px;
         }
 
-        .metric-item {
-            flex: 1;
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
         }
 
-        .metric-label {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 6px;
-        }
-
-        .metric-value {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .metric-value.positive {
+        .tag-hot {
+            background: #ffe0e0;
             color: #ff4757;
         }
 
-        .metric-value.negative {
+        .tag-info {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .tag-monitor {
+            background: #e8fff3;
             color: #2ed573;
         }
 
-        .metric-unit {
-            font-size: 12px;
-            color: #666;
-            margin-left: 2px;
-        }
-
-        .metric-desc {
-            font-size: 11px;
-            color: #999;
-            margin-top: 4px;
-        }
-
-        /* K线图 + Keyzone */
-        .chart-container {
-            height: 460px;
-            background: #ffffff;
-            position: relative;
-            overflow: hidden;
-            padding: 8px 16px;
-        }
-
-        .chart-svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Keyzone 列表 */
-        .keyzone-list {
+        /* 关键价格列表 */
+        .keyprice-list {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        .keyzone-item {
+        .keyprice-item {
             border: 1px solid #e8e8e8;
             border-radius: 10px;
             padding: 12px;
@@ -217,7 +196,7 @@
             overflow: hidden;
         }
 
-        .keyzone-item::before {
+        .keyprice-item::before {
             content: '';
             position: absolute;
             left: 0;
@@ -226,71 +205,58 @@
             width: 4px;
         }
 
-        .keyzone-item.support::before {
-            background: #2ed573;
-        }
-
-        .keyzone-item.resistance::before {
+        .keyprice-item.resistance::before {
             background: #ff4757;
         }
 
-        .keyzone-item.breakout::before {
-            background: #ff6b35;
+        .keyprice-item.support::before {
+            background: #2ed573;
         }
 
-        .keyzone-header {
+        .keyprice-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
         }
 
-        .keyzone-type {
+        .keyprice-level {
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .type-badge {
+        .level-badge {
             padding: 3px 10px;
             border-radius: 4px;
             font-size: 12px;
             font-weight: 600;
         }
 
-        .type-badge.support {
-            background: #e8fff3;
-            color: #2ed573;
-        }
-
-        .type-badge.resistance {
+        .level-badge.resistance {
             background: #ffe0e0;
             color: #ff4757;
         }
 
-        .type-badge.breakout {
-            background: #fff3e0;
-            color: #ff6b35;
+        .level-badge.support {
+            background: #e8fff3;
+            color: #2ed573;
         }
 
-        .keyzone-price {
+        .keyprice-price {
             font-size: 18px;
             font-weight: bold;
         }
 
-        .keyzone-price.support {
-            color: #2ed573;
-        }
-
-        .keyzone-price.resistance {
+        .keyprice-price.resistance {
             color: #ff4757;
         }
 
-        .keyzone-price.breakout {
-            color: #ff6b35;
+        .keyprice-price.support {
+            color: #2ed573;
         }
 
-        .keyzone-meta {
+        .keyprice-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -298,29 +264,30 @@
             color: #999;
         }
 
-        .keyzone-strength {
+        .keyprice-status {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
-        .strength-dots {
-            display: flex;
-            gap: 2px;
-        }
-
-        .strength-dot {
-            width: 6px;
-            height: 6px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: #e0e0e0;
         }
 
-        .strength-dot.active {
-            background: #ff6b35;
+        .status-dot.monitoring {
+            background: #2ed573;
+            animation: pulse 2s infinite;
         }
 
-        .keyzone-actions {
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .keyprice-actions {
             display: flex;
             gap: 8px;
             margin-top: 10px;
@@ -349,7 +316,7 @@
             border-color: #2ed573;
         }
 
-        /* 盯盘设置卡片 */
+        /* 盯盘设置 */
         .monitor-settings {
             display: flex;
             flex-direction: column;
@@ -454,30 +421,13 @@
         .alert-desc {
             font-size: 12px;
             color: #666;
+            line-height: 1.5;
         }
 
         .alert-time {
             font-size: 11px;
             color: #999;
             margin-top: 4px;
-        }
-
-        /* 标签 */
-        .tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 11px;
-        }
-
-        .tag-hot {
-            background: #ffe0e0;
-            color: #ff4757;
-        }
-
-        .tag-info {
-            background: #e3f2fd;
-            color: #1976d2;
         }
 
         /* 底部操作栏 */
@@ -511,22 +461,6 @@
             background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
             color: white;
         }
-
-        /* 空状态 */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #999;
-        }
-
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-
-        .empty-text {
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -552,175 +486,177 @@
                 <div class="price-change price-up">+28.50 (+1.72%)</div>
             </div>
         </div>
-        <div class="time-tabs">
-            <div class="time-tab active" data-period="5d">5天</div>
-            <div class="time-tab" data-period="1m">1个月</div>
-            <div class="time-tab" data-period="3m">3个月</div>
-        </div>
     </div>
 
     <!-- 主要内容区 -->
     <div class="content">
-        <!-- Delta & Volume 概览 -->
+        <!-- 今日分时图 & 关键价格 -->
         <div class="card">
             <div class="card-title">
                 <div class="icon"></div>
-                订单流分析
-            </div>
-            <div class="metrics-overview">
-                <div class="metric-item">
-                    <div class="metric-label">Delta 净值</div>
-                    <div class="metric-value positive">+2.86<span class="metric-unit">万</span></div>
-                    <div class="metric-desc">主力资金净流入</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Volume</div>
-                    <div class="metric-value">12.5<span class="metric-unit">万手</span></div>
-                    <div class="metric-desc">较昨日 +23%</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-label">Keyzone</div>
-                    <div class="metric-value" style="color: #ff6b35;">5<span class="metric-unit">个</span></div>
-                    <div class="metric-desc">已监控 3 个</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- K线蜡烛图 + 关键价格 + Delta -->
-        <div class="card">
-            <div class="card-title">
-                <div class="icon"></div>
-                K线走势 & 关键价格 & Delta
+                今日分时 & 关键位置
             </div>
             <div class="chart-container">
-                <svg class="chart-svg" id="chartSvg" viewBox="0 0 360 440">
+                <svg viewBox="0 0 360 280" style="width: 100%; height: 100%;">
                     <defs>
-                        <linearGradient id="candleRed" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e63946;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#e63946;stop-opacity:1" />
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff6b35;stop-opacity:1" />
                         </linearGradient>
-                        <linearGradient id="candleGreen" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#2a9d8f;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#2a9d8f;stop-opacity:1" />
+                        <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff4757;stop-opacity:0.15" />
+                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:0" />
                         </linearGradient>
                     </defs>
                     
-                    <!-- 分隔线 -->
-                    <line x1="20" y1="280" x2="340" y2="280" stroke="#e5e5e5" stroke-width="1"/>
-                    <text x="26" y="292" font-size="11" fill="#999">Delta</text>
+                    <!-- 网格线 -->
+                    <line x1="20" y1="30" x2="340" y2="30" stroke="#f0f0f0" stroke-width="1"/>
+                    <line x1="20" y1="80" x2="340" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+                    <line x1="20" y1="130" x2="340" y2="130" stroke="#f0f0f0" stroke-width="1"/>
+                    <line x1="20" y1="180" x2="340" y2="180" stroke="#f0f0f0" stroke-width="1"/>
+                    <line x1="20" y1="230" x2="340" y2="230" stroke="#f0f0f0" stroke-width="1"/>
                     
-                    <!-- K线部分网格线（浅灰色虚线） -->
-                    <line x1="20" y1="20" x2="340" y2="20" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
-                    <line x1="20" y1="70" x2="340" y2="70" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
-                    <line x1="20" y1="120" x2="340" y2="120" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
-                    <line x1="20" y1="170" x2="340" y2="170" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
-                    <line x1="20" y1="220" x2="340" y2="220" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
-                    <line x1="20" y1="270" x2="340" y2="270" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <!-- 关键价格线 - 5分钟级别（阻力） -->
+                    <line x1="20" y1="35" x2="340" y2="35" stroke="#ff4757" stroke-width="2" stroke-dasharray="6,4"/>
+                    <rect x="20" y="22" width="110" height="18" rx="4" fill="rgba(255,71,87,0.95)"/>
+                    <text x="26" y="34" font-size="10" fill="white">5分钟 1720</text>
                     
-                    <!-- 动态内容区域 -->
-                    <g id="dynamicContent"></g>
+                    <!-- 关键价格线 - 30分钟级别（阻力） -->
+                    <line x1="20" y1="70" x2="340" y2="70" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="5,3"/>
+                    <rect x="20" y="57" width="110" height="18" rx="4" fill="rgba(255,71,87,0.85)"/>
+                    <text x="26" y="69" font-size="10" fill="white">30分钟 1705</text>
                     
-                    <!-- Delta 零轴线 -->
-                    <line x1="20" y1="280" x2="340" y2="280" stroke="#999" stroke-width="0.5"/>
+                    <!-- 当前价格线 -->
+                    <line x1="20" y1="130" x2="340" y2="130" stroke="#ff6b35" stroke-width="2" stroke-dasharray="4,2"/>
+                    <rect x="265" y="117" width="80" height="18" rx="4" fill="rgba(255,107,53,0.95)"/>
+                    <text x="271" y="129" font-size="10" fill="white">现价 1688</text>
                     
-                    <!-- 时间标签（动态） -->
-                    <g id="timeLabels"></g>
+                    <!-- 关键价格线 - 2小时级别（支撑） -->
+                    <line x1="20" y1="180" x2="340" y2="180" stroke="#2ed573" stroke-width="1.5" stroke-dasharray="5,3"/>
+                    <rect x="20" y="167" width="105" height="18" rx="4" fill="rgba(46,213,115,0.85)"/>
+                    <text x="26" y="179" font-size="10" fill="white">2小时 1665</text>
+                    
+                    <!-- 关键价格线 - 日级别（支撑） -->
+                    <line x1="20" y1="225" x2="340" y2="225" stroke="#2ed573" stroke-width="2" stroke-dasharray="6,4"/>
+                    <rect x="20" y="212" width="95" height="18" rx="4" fill="rgba(46,213,115,0.95)"/>
+                    <text x="26" y="224" font-size="10" fill="white">日级别 1650</text>
+                    
+                    <!-- 分时走势线 -->
+                    <path d="M 20 200 L 45 195 L 70 185 L 95 190 L 120 175 L 145 165 L 170 155 L 195 145 L 220 135 L 245 130 L 270 125 L 295 128 L 320 132 L 340 130" 
+                          fill="none" stroke="url(#lineGradient)" stroke-width="2"/>
+                    
+                    <!-- 填充区域 -->
+                    <path d="M 20 200 L 45 195 L 70 185 L 95 190 L 120 175 L 145 165 L 170 155 L 195 145 L 220 135 L 245 130 L 270 125 L 295 128 L 320 132 L 340 130 L 340 240 L 20 240 Z" 
+                          fill="url(#areaGradient)"/>
+                    
+                    <!-- 时间标签 -->
+                    <text x="20" y="265" font-size="10" fill="#999">9:30</text>
+                    <text x="120" y="265" font-size="10" fill="#999">11:30</text>
+                    <text x="220" y="265" font-size="10" fill="#999">14:00</text>
+                    <text x="315" y="265" font-size="10" fill="#999">15:00</text>
                 </svg>
             </div>
         </div>
 
-        <!-- Keyzone 列表 -->
+        <!-- 今日关键价格列表 -->
         <div class="card">
             <div class="card-title">
                 <div class="icon"></div>
-                关键位置列表
-                <span class="tag tag-info">5个</span>
+                今日关键位置
+                <span class="tag tag-info">已监控 3/4</span>
             </div>
-            <div class="keyzone-list">
-                <!-- 阻力位 -->
-                <div class="keyzone-item resistance">
-                    <div class="keyzone-header">
-                        <div class="keyzone-type">
-                            <span class="type-badge resistance">阻力位</span>
+            <div class="keyprice-list">
+                <!-- 5分钟级别阻力 -->
+                <div class="keyprice-item resistance">
+                    <div class="keyprice-header">
+                        <div class="keyprice-level">
+                            <span class="level-badge resistance">阻力</span>
+                            <span class="tag tag-info">5分钟级别</span>
                         </div>
-                        <div class="keyzone-price resistance">1720.00 - 1735.00</div>
+                        <div class="keyprice-price resistance">1720.00</div>
                     </div>
-                    <div class="keyzone-meta">
-                        <div class="keyzone-strength">
-                            <span>强度</span>
-                            <div class="strength-dots">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot"></div>
-                            </div>
+                    <div class="keyprice-meta">
+                        <div class="keyprice-status">
+                            <div class="status-dot monitoring"></div>
+                            <span style="color: #2ed573;">监控中</span>
                         </div>
                         <div>距离当前: +1.9%</div>
                     </div>
-                    <div class="keyzone-actions">
+                    <div class="keyprice-actions">
                         <button class="action-btn">详情</button>
-                        <button class="action-btn primary">开启盯盘</button>
+                        <button class="action-btn monitoring">已开启盯盘</button>
                     </div>
                 </div>
 
-                <!-- 支撑位 -->
-                <div class="keyzone-item support">
-                    <div class="keyzone-header">
-                        <div class="keyzone-type">
-                            <span class="type-badge support">支撑位</span>
+                <!-- 30分钟级别阻力 -->
+                <div class="keyprice-item resistance">
+                    <div class="keyprice-header">
+                        <div class="keyprice-level">
+                            <span class="level-badge resistance">阻力</span>
+                            <span class="tag tag-info">30分钟级别</span>
                         </div>
-                        <div class="keyzone-price support">1650.00 - 1665.00</div>
+                        <div class="keyprice-price resistance">1705.00</div>
                     </div>
-                    <div class="keyzone-meta">
-                        <div class="keyzone-strength">
-                            <span>强度</span>
-                            <div class="strength-dots">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                            </div>
+                    <div class="keyprice-meta">
+                        <div class="keyprice-status">
+                            <div class="status-dot monitoring"></div>
+                            <span style="color: #2ed573;">监控中</span>
+                        </div>
+                        <div>距离当前: +1.0%</div>
+                    </div>
+                    <div class="keyprice-actions">
+                        <button class="action-btn">详情</button>
+                        <button class="action-btn monitoring">已开启盯盘</button>
+                    </div>
+                </div>
+
+                <!-- 2小时级别支撑 -->
+                <div class="keyprice-item support">
+                    <div class="keyprice-header">
+                        <div class="keyprice-level">
+                            <span class="level-badge support">支撑</span>
+                            <span class="tag tag-info">2小时级别</span>
+                        </div>
+                        <div class="keyprice-price support">1665.00</div>
+                    </div>
+                    <div class="keyprice-meta">
+                        <div class="keyprice-status">
+                            <div class="status-dot monitoring"></div>
+                            <span style="color: #2ed573;">监控中</span>
                         </div>
                         <div>距离当前: -1.4%</div>
                     </div>
-                    <div class="keyzone-actions">
+                    <div class="keyprice-actions">
                         <button class="action-btn">详情</button>
-                        <button class="action-btn monitoring">监控中</button>
+                        <button class="action-btn monitoring">已开启盯盘</button>
                     </div>
                 </div>
 
-                <!-- 突破位 -->
-                <div class="keyzone-item breakout">
-                    <div class="keyzone-header">
-                        <div class="keyzone-type">
-                            <span class="type-badge breakout">突破位</span>
+                <!-- 日级别支撑 -->
+                <div class="keyprice-item support">
+                    <div class="keyprice-header">
+                        <div class="keyprice-level">
+                            <span class="level-badge support">支撑</span>
+                            <span class="tag tag-info">日级别</span>
                         </div>
-                        <div class="keyzone-price breakout">1600.00 - 1615.00</div>
+                        <div class="keyprice-price support">1650.00</div>
                     </div>
-                    <div class="keyzone-meta">
-                        <div class="keyzone-strength">
-                            <span>强度</span>
-                            <div class="strength-dots">
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot active"></div>
-                                <div class="strength-dot"></div>
-                                <div class="strength-dot"></div>
-                            </div>
+                    <div class="keyprice-meta">
+                        <div class="keyprice-status">
+                            <div class="status-dot"></div>
+                            <span style="color: #999;">未监控</span>
                         </div>
-                        <div>距离当前: -5.2%</div>
+                        <div>距离当前: -2.3%</div>
                     </div>
-                    <div class="keyzone-actions">
+                    <div class="keyprice-actions">
                         <button class="action-btn">详情</button>
-                        <button class="action-btn monitoring">监控中</button>
+                        <button class="action-btn primary">开启盯盘</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 盯盘设置 -->
+        <!-- 盯盘提醒设置 -->
         <div class="card">
             <div class="card-title">
                 <div class="icon"></div>
@@ -728,11 +664,11 @@
             </div>
             <div class="monitor-settings">
                 <div class="monitor-item">
-                    <div class="monitor-label">支撑位触及提醒</div>
+                    <div class="monitor-label">触及阻力位提醒</div>
                     <div class="toggle-switch active"></div>
                 </div>
                 <div class="monitor-item">
-                    <div class="monitor-label">阻力位触及提醒</div>
+                    <div class="monitor-label">触及支撑位提醒</div>
                     <div class="toggle-switch active"></div>
                 </div>
                 <div class="monitor-item">
@@ -740,39 +676,39 @@
                     <div class="toggle-switch active"></div>
                 </div>
                 <div class="monitor-item">
-                    <div class="monitor-label">Delta 异常提醒</div>
+                    <div class="monitor-label">Delta 爆量提醒</div>
                     <div class="toggle-switch"></div>
                 </div>
                 <div class="monitor-item">
-                    <div class="monitor-label">Volume 放量提醒</div>
+                    <div class="monitor-label">盘口异动提醒</div>
                     <div class="toggle-switch active"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 提醒历史 -->
+        <!-- 近期提醒历史 -->
         <div class="card">
             <div class="card-title">
                 <div class="icon"></div>
-                近期提醒
+                今日提醒记录
             </div>
             <div class="alert-history">
                 <div class="alert-item">
-                    <div class="alert-icon support">🎯</div>
+                    <div class="alert-icon resistance">⚠️</div>
                     <div class="alert-content">
-                        <div class="alert-title">支撑位 1658 - 被动买单吸筹</div>
+                        <div class="alert-title">接近 30分钟级别阻力位</div>
                         <div class="alert-desc">
-                            价格触及 1658 关键支撑位，盘口出现被动买单密集挂单，买一至买五累计挂单 8.2 万手，Delta 1 分钟内流入 +1.5 万，疑似机构在支撑位吸筹。
+                            价格 1702.50 接近 30分钟级别阻力 1705，盘口出现 1.2 万手卖单压盘，Delta 由正转负 -0.8 万
                         </div>
                         <div class="alert-time">今天 14:32</div>
                     </div>
                 </div>
                 <div class="alert-item">
-                    <div class="alert-icon resistance">⚠️</div>
+                    <div class="alert-icon support">🎯</div>
                     <div class="alert-content">
-                        <div class="alert-title">阻力位 1728 - 主动多单测试</div>
+                        <div class="alert-title">触及 2小时级别支撑位</div>
                         <div class="alert-desc">
-                            价格接近 1728 阻力位，盘口出现主动多单连续扫货，5 分钟内主动买入成交 3.6 万手，Delta 爆量 +2.8 万，但卖一位置有 2.1 万手大单压盘，需观察能否突破。
+                            价格下探 1665 支撑位，买一位置出现 8000 手大单托底，随后 2 分钟快速拉升 0.8%，疑似机构护盘
                         </div>
                         <div class="alert-time">今天 10:15</div>
                     </div>
@@ -780,21 +716,11 @@
                 <div class="alert-item">
                     <div class="alert-icon breakout">🚀</div>
                     <div class="alert-content">
-                        <div class="alert-title">关键位 1680 - 放量突破确认</div>
+                        <div class="alert-title">开盘突破日级别压力</div>
                         <div class="alert-desc">
-                            价格突破 1680 关键位，Volume 放大 2.3 倍，主动多单占比 78%，Delta 持续流入 +5.2 万，卖盘压单被快速吃掉，突破有效，可关注回踩机会。
+                            高开 1.2% 直接突破昨日高点 1670，成交量放大 1.8 倍，Delta 持续流入 +2.5 万，突破有效
                         </div>
-                        <div class="alert-time">昨天 15:22</div>
-                    </div>
-                </div>
-                <div class="alert-item">
-                    <div class="alert-icon support">💰</div>
-                    <div class="alert-content">
-                        <div class="alert-title">支撑位 1608 - 大单托底</div>
-                        <div class="alert-desc">
-                            价格下探 1608 前期支撑位，买一位置突然出现 5.8 万手超级大单托底，随后 3 分钟内快速拉升 2.1%，Delta 由负转正，显示主力护盘意图明显。
-                        </div>
-                        <div class="alert-time">3天前 09:48</div>
+                        <div class="alert-time">今天 09:35</div>
                     </div>
                 </div>
             </div>
@@ -811,212 +737,6 @@
     </div>
 
     <script>
-        // 当前周期
-        let currentPeriod = '5d';
-
-        // 生成K线数据的辅助函数
-        function generateCandles(count, startY, trend) {
-            const candles = [];
-            const deltas = [];
-            const xStep = (320 - 40) / (count - 1);
-            
-            let currentY = startY;
-            
-            for (let i = 0; i < count; i++) {
-                const x = 40 + i * xStep;
-                
-                // 根据趋势生成价格
-                let targetY;
-                if (trend === 'down') {
-                    targetY = startY + (i / count) * 120;
-                } else if (trend === 'up') {
-                    targetY = startY - (i / count) * 120;
-                } else if (trend === 'box') {
-                    const boxPhase = i % 4;
-                    if (boxPhase === 0) targetY = startY - 20;
-                    else if (boxPhase === 1) targetY = startY + 20;
-                    else if (boxPhase === 2) targetY = startY - 15;
-                    else targetY = startY + 15;
-                } else if (trend === 'upThenBoxThenDown') {
-                    if (i < count * 0.35) {
-                        targetY = startY - (i / (count * 0.35)) * 100;
-                    } else if (i < count * 0.7) {
-                        const boxI = i - count * 0.35;
-                        const boxPhase = boxI % 4;
-                        const baseY = startY - 100;
-                        if (boxPhase === 0) targetY = baseY - 15;
-                        else if (boxPhase === 1) targetY = baseY + 15;
-                        else if (boxPhase === 2) targetY = baseY - 10;
-                        else targetY = baseY + 10;
-                    } else {
-                        const downI = i - count * 0.7;
-                        const baseY = startY - 100;
-                        targetY = baseY + (downI / (count * 0.3)) * 80;
-                    }
-                } else if (trend === 'boxThenDown') {
-                    if (i < count * 0.6) {
-                        const boxPhase = i % 4;
-                        if (boxPhase === 0) targetY = startY - 20;
-                        else if (boxPhase === 1) targetY = startY + 20;
-                        else if (boxPhase === 2) targetY = startY - 15;
-                        else targetY = startY + 15;
-                    } else {
-                        const downI = i - count * 0.6;
-                        targetY = startY + (downI / (count * 0.4)) * 80;
-                    }
-                }
-                
-                // 添加随机波动
-                const volatility = 15;
-                const high = targetY - volatility + Math.random() * volatility * 2;
-                const low = targetY + volatility + Math.random() * volatility * 2;
-                const open = currentY + (Math.random() - 0.5) * 20;
-                const close = targetY + (Math.random() - 0.5) * 15;
-                const isUp = close < open;
-                
-                candles.push({
-                    x: x,
-                    high: Math.min(high, low, open, close) - 10,
-                    low: Math.max(high, low, open, close) + 10,
-                    open: open,
-                    close: close,
-                    isUp: isUp
-                });
-                
-                // Delta
-                deltas.push({
-                    x: x - 6,
-                    height: 15 + Math.random() * 30,
-                    isUp: isUp
-                });
-                
-                currentY = close;
-            }
-            
-            return { candles, deltas };
-        }
-
-        // 周期数据配置
-        const periodData = {
-            '5d': {
-                keyPrices: [
-                    { price: 1750, type: 'resistance', label: '5分钟级别 1750', y: 35 },
-                    { price: 1720, type: 'resistance', label: '30分钟级别 1720', y: 65 },
-                    { price: 1688, type: 'current', label: '现价 1688', y: 115 },
-                    { price: 1650, type: 'support', label: '2小时级别 1650', y: 170 },
-                    { price: 1600, type: 'support', label: '日级别 1600', y: 235 }
-                ],
-                ...generateCandles(5, 80, 'down'),
-                timeLabels: [
-                    { x: 20, text: '-5天' },
-                    { x: 170, text: '-2天' },
-                    { x: 295, text: '今天' }
-                ]
-            },
-            '1m': {
-                keyPrices: [
-                    { price: 1750, type: 'resistance', label: '30分钟级别 1750', y: 45 },
-                    { price: 1720, type: 'resistance', label: '2小时级别 1720', y: 75 },
-                    { price: 1688, type: 'current', label: '现价 1688', y: 120 },
-                    { price: 1650, type: 'support', label: '日级别 1650', y: 165 },
-                    { price: 1600, type: 'support', label: '周级别 1600', y: 230 }
-                ],
-                ...generateCandles(22, 100, 'boxThenDown'),
-                timeLabels: [
-                    { x: 20, text: '-30天' },
-                    { x: 170, text: '-15天' },
-                    { x: 295, text: '今天' }
-                ]
-            },
-            '3m': {
-                keyPrices: [
-                    { price: 1820, type: 'resistance', label: '2小时级别 1820', y: 25 },
-                    { price: 1780, type: 'resistance', label: '日级别 1780', y: 55 },
-                    { price: 1720, type: 'resistance', label: '周级别 1720', y: 90 },
-                    { price: 1688, type: 'current', label: '现价 1688', y: 125 },
-                    { price: 1650, type: 'support', label: '月级别 1650', y: 160 },
-                    { price: 1580, type: 'support', label: '季级别 1580', y: 225 }
-                ],
-                ...generateCandles(66, 180, 'upThenBoxThenDown'),
-                timeLabels: [
-                    { x: 20, text: '-90天' },
-                    { x: 120, text: '-45天' },
-                    { x: 230, text: '-15天' },
-                    { x: 295, text: '今天' }
-                ]
-            }
-        };
-
-        // 渲染图表
-        function renderChart(period) {
-            const data = periodData[period];
-            const dynamicContent = document.getElementById('dynamicContent');
-            const timeLabels = document.getElementById('timeLabels');
-            
-            let html = '';
-
-            // 关键价格线
-            data.keyPrices.forEach(kp => {
-                const color = kp.type === 'resistance' ? '#e63946' : 
-                              kp.type === 'support' ? '#2a9d8f' : '#e63946';
-                const dashArray = kp.type === 'current' ? '3,3' : '5,3';
-                html += `
-                    <line x1="20" y1="${kp.y}" x2="340" y2="${kp.y}" stroke="${color}" stroke-width="1.5" stroke-dasharray="${dashArray}"/>
-                    <rect x="20" y="${kp.y - 12}" width="78" height="16" rx="2" fill="${color}"/>
-                    <text x="25" y="${kp.y}" font-size="10" fill="white">${kp.label}</text>
-                `;
-            });
-
-            // 当前价格标签放右边
-            const currentKP = data.keyPrices.find(kp => kp.type === 'current');
-            if (currentKP) {
-                html += `
-                    <rect x="270" y="${currentKP.y - 12}" width="68" height="16" rx="2" fill="#e63946"/>
-                    <text x="275" y="${currentKP.y}" font-size="10" fill="white">现价 1688</text>
-                `;
-            }
-
-            // 蜡烛图（同花顺风格：红色跌，绿色涨）
-            data.candles.forEach(c => {
-                const gradient = c.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
-                const color = c.isUp ? '#2a9d8f' : '#e63946';
-                const bodyTop = Math.min(c.open, c.close);
-                const bodyHeight = Math.max(Math.abs(c.close - c.open), 3);
-                html += `
-                    <line x1="${c.x}" y1="${c.high}" x2="${c.x}" y2="${c.low}" stroke="${color}" stroke-width="1"/>
-                    <rect x="${c.x - 4}" y="${bodyTop}" width="8" height="${bodyHeight}" rx="0" fill="${gradient}"/>
-                `;
-            });
-
-            // Delta柱
-            data.deltas.forEach(d => {
-                const gradient = d.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
-                const y = d.isUp ? (280 - d.height) : 280;
-                html += `<rect x="${d.x}" y="${y}" width="10" height="${d.height}" rx="1" fill="${gradient}"/>`;
-            });
-
-            dynamicContent.innerHTML = html;
-
-            // 时间标签
-            let timeHtml = '';
-            data.timeLabels.forEach(tl => {
-                const color = tl.text === '今天' ? '#ff6b35' : '#999';
-                const weight = tl.text === '今天' ? 'bold' : 'normal';
-                timeHtml += `<text x="${tl.x}" y="435" font-size="10" fill="${color}" font-weight="${weight}">${tl.text}</text>`;
-            });
-            timeLabels.innerHTML = timeHtml;
-        }
-
-        // 时间周期切换
-        document.querySelectorAll('.time-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.time-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                currentPeriod = this.dataset.period;
-                renderChart(currentPeriod);
-            });
-        });
-
         // 切换开关
         document.querySelectorAll('.toggle-switch').forEach(toggle => {
             toggle.addEventListener('click', function() {
@@ -1025,22 +745,37 @@
         });
 
         // 盯盘按钮
-        document.querySelectorAll('.keyzone-actions .action-btn').forEach(btn => {
+        document.querySelectorAll('.keyprice-actions .action-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 if (this.textContent === '开启盯盘') {
-                    this.textContent = '监控中';
+                    this.textContent = '已开启盯盘';
                     this.classList.remove('primary');
                     this.classList.add('monitoring');
-                } else if (this.textContent === '监控中') {
+                    const statusDot = this.closest('.keyprice-item').querySelector('.status-dot');
+                    if (statusDot) {
+                        statusDot.classList.add('monitoring');
+                        const statusText = this.closest('.keyprice-item').querySelector('.keyprice-status span');
+                        if (statusText) {
+                            statusText.textContent = '监控中';
+                            statusText.style.color = '#2ed573';
+                        }
+                    }
+                } else if (this.textContent === '已开启盯盘') {
                     this.textContent = '开启盯盘';
                     this.classList.remove('monitoring');
                     this.classList.add('primary');
+                    const statusDot = this.closest('.keyprice-item').querySelector('.status-dot');
+                    if (statusDot) {
+                        statusDot.classList.remove('monitoring');
+                        const statusText = this.closest('.keyprice-item').querySelector('.keyprice-status span');
+                        if (statusText) {
+                            statusText.textContent = '未监控';
+                            statusText.style.color = '#999';
+                        }
+                    }
                 }
             });
         });
-
-        // 初始化渲染
-        renderChart('5d');
     </script>
 </body>
 </html>
