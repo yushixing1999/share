@@ -817,13 +817,91 @@
         // 当前周期
         let currentPeriod = '5d';
 
+        // 生成K线数据的辅助函数
+        function generateCandles(count, startY, trend) {
+            const candles = [];
+            const deltas = [];
+            const xStep = (320 - 40) / (count - 1);
+            
+            let currentY = startY;
+            
+            for (let i = 0; i < count; i++) {
+                const x = 40 + i * xStep;
+                
+                // 根据趋势生成价格
+                let targetY;
+                if (trend === 'down') {
+                    targetY = startY + (i / count) * 120;
+                } else if (trend === 'up') {
+                    targetY = startY - (i / count) * 120;
+                } else if (trend === 'box') {
+                    const boxPhase = i % 4;
+                    if (boxPhase === 0) targetY = startY - 20;
+                    else if (boxPhase === 1) targetY = startY + 20;
+                    else if (boxPhase === 2) targetY = startY - 15;
+                    else targetY = startY + 15;
+                } else if (trend === 'upThenBoxThenDown') {
+                    if (i < count * 0.35) {
+                        targetY = startY - (i / (count * 0.35)) * 100;
+                    } else if (i < count * 0.7) {
+                        const boxI = i - count * 0.35;
+                        const boxPhase = boxI % 4;
+                        const baseY = startY - 100;
+                        if (boxPhase === 0) targetY = baseY - 15;
+                        else if (boxPhase === 1) targetY = baseY + 15;
+                        else if (boxPhase === 2) targetY = baseY - 10;
+                        else targetY = baseY + 10;
+                    } else {
+                        const downI = i - count * 0.7;
+                        const baseY = startY - 100;
+                        targetY = baseY + (downI / (count * 0.3)) * 80;
+                    }
+                } else if (trend === 'boxThenDown') {
+                    if (i < count * 0.6) {
+                        const boxPhase = i % 4;
+                        if (boxPhase === 0) targetY = startY - 20;
+                        else if (boxPhase === 1) targetY = startY + 20;
+                        else if (boxPhase === 2) targetY = startY - 15;
+                        else targetY = startY + 15;
+                    } else {
+                        const downI = i - count * 0.6;
+                        targetY = startY + (downI / (count * 0.4)) * 80;
+                    }
+                }
+                
+                // 添加随机波动
+                const volatility = 15;
+                const high = targetY - volatility + Math.random() * volatility * 2;
+                const low = targetY + volatility + Math.random() * volatility * 2;
+                const open = currentY + (Math.random() - 0.5) * 20;
+                const close = targetY + (Math.random() - 0.5) * 15;
+                const isUp = close < open;
+                
+                candles.push({
+                    x: x,
+                    high: Math.min(high, low, open, close) - 10,
+                    low: Math.max(high, low, open, close) + 10,
+                    open: open,
+                    close: close,
+                    isUp: isUp
+                });
+                
+                // Delta
+                deltas.push({
+                    x: x - 6,
+                    height: 15 + Math.random() * 30,
+                    isUp: isUp
+                });
+                
+                currentY = close;
+            }
+            
+            return { candles, deltas };
+        }
+
         // 周期数据配置
         const periodData = {
             '5d': {
-                title: '下跌趋势',
-                stages: [
-                    { label: '📉 下跌', x: 20, color: '#ff4757' }
-                ],
                 keyPrices: [
                     { price: 1750, type: 'resistance', label: '前高 1750', y: 35 },
                     { price: 1720, type: 'resistance', label: '阻力 1720', y: 65 },
@@ -831,30 +909,7 @@
                     { price: 1650, type: 'support', label: '支撑 1650', y: 170 },
                     { price: 1600, type: 'support', label: '前低 1600', y: 235 }
                 ],
-                candles: [
-                    { x: 32, high: 100, low: 130, open: 105, close: 125, isUp: false },
-                    { x: 62, high: 115, low: 150, open: 120, close: 145, isUp: false },
-                    { x: 92, high: 135, low: 170, open: 140, close: 165, isUp: false },
-                    { x: 122, high: 150, low: 185, open: 160, close: 180, isUp: false },
-                    { x: 152, high: 160, low: 195, open: 170, close: 190, isUp: false },
-                    { x: 182, high: 150, low: 185, open: 180, close: 160, isUp: true },
-                    { x: 212, high: 145, low: 175, open: 155, close: 170, isUp: false },
-                    { x: 242, high: 130, low: 160, open: 150, close: 140, isUp: true },
-                    { x: 272, high: 115, low: 145, open: 135, close: 125, isUp: true },
-                    { x: 302, high: 110, low: 135, open: 120, close: 115, isUp: false }
-                ],
-                deltas: [
-                    { x: 26, height: 20, isUp: false },
-                    { x: 56, height: 30, isUp: false },
-                    { x: 86, height: 40, isUp: false },
-                    { x: 116, height: 35, isUp: false },
-                    { x: 146, height: 45, isUp: false },
-                    { x: 176, height: 28, isUp: true },
-                    { x: 206, height: 22, isUp: false },
-                    { x: 236, height: 25, isUp: true },
-                    { x: 266, height: 18, isUp: true },
-                    { x: 296, height: 15, isUp: false }
-                ],
+                ...generateCandles(5, 80, 'down'),
                 timeLabels: [
                     { x: 20, text: '-5天' },
                     { x: 170, text: '-2天' },
@@ -862,44 +917,14 @@
                 ]
             },
             '1m': {
-                title: '震荡箱体+下跌',
-                stages: [
-                    { label: '📦 箱体', x: 20, color: '#b8860b' },
-                    { label: '📉 下跌', x: 180, color: '#ff4757' }
-                ],
                 keyPrices: [
-                    { price: 1750, type: 'resistance', label: '箱顶 1750', y: 35 },
-                    { price: 1720, type: 'resistance', label: '阻力 1720', y: 65 },
-                    { price: 1688, type: 'current', label: '现价 1688', y: 115 },
-                    { price: 1650, type: 'support', label: '箱底 1650', y: 170 },
-                    { price: 1600, type: 'support', label: '前低 1600', y: 235 }
+                    { price: 1750, type: 'resistance', label: '箱顶 1750', y: 45 },
+                    { price: 1720, type: 'resistance', label: '阻力 1720', y: 75 },
+                    { price: 1688, type: 'current', label: '现价 1688', y: 120 },
+                    { price: 1650, type: 'support', label: '箱底 1650', y: 165 },
+                    { price: 1600, type: 'support', label: '前低 1600', y: 230 }
                 ],
-                candles: [
-                    // 箱体震荡阶段
-                    { x: 32, high: 80, low: 110, open: 85, close: 105, isUp: false },
-                    { x: 62, high: 75, low: 105, open: 100, close: 80, isUp: true },
-                    { x: 92, high: 70, low: 100, open: 75, close: 95, isUp: false },
-                    { x: 122, high: 65, low: 95, open: 90, close: 70, isUp: true },
-                    { x: 152, high: 80, low: 110, open: 75, close: 105, isUp: false },
-                    { x: 182, high: 70, low: 100, open: 100, close: 75, isUp: true },
-                    // 下跌阶段
-                    { x: 212, high: 90, low: 125, open: 95, close: 120, isUp: false },
-                    { x: 242, high: 110, low: 145, open: 115, close: 140, isUp: false },
-                    { x: 272, high: 125, low: 160, open: 130, close: 155, isUp: false },
-                    { x: 302, high: 115, low: 145, open: 150, close: 120, isUp: true }
-                ],
-                deltas: [
-                    { x: 26, height: 18, isUp: false },
-                    { x: 56, height: 22, isUp: true },
-                    { x: 86, height: 15, isUp: false },
-                    { x: 116, height: 20, isUp: true },
-                    { x: 146, height: 25, isUp: false },
-                    { x: 176, height: 18, isUp: true },
-                    { x: 206, height: 30, isUp: false },
-                    { x: 236, height: 38, isUp: false },
-                    { x: 266, height: 42, isUp: false },
-                    { x: 296, height: 25, isUp: true }
-                ],
+                ...generateCandles(22, 100, 'boxThenDown'),
                 timeLabels: [
                     { x: 20, text: '-30天' },
                     { x: 170, text: '-15天' },
@@ -907,47 +932,15 @@
                 ]
             },
             '3m': {
-                title: '上涨+震荡+下跌',
-                stages: [
-                    { label: '📈 上涨', x: 20, color: '#2ed573' },
-                    { label: '📦 震荡', x: 120, color: '#b8860b' },
-                    { label: '📉 下跌', x: 230, color: '#ff4757' }
-                ],
                 keyPrices: [
                     { price: 1820, type: 'resistance', label: '前高 1820', y: 25 },
                     { price: 1780, type: 'resistance', label: '阻力 1780', y: 55 },
-                    { price: 1720, type: 'resistance', label: '箱顶 1720', y: 85 },
+                    { price: 1720, type: 'resistance', label: '箱顶 1720', y: 90 },
                     { price: 1688, type: 'current', label: '现价 1688', y: 125 },
-                    { price: 1650, type: 'support', label: '箱底 1650', y: 165 },
+                    { price: 1650, type: 'support', label: '箱底 1650', y: 160 },
                     { price: 1580, type: 'support', label: '起涨点 1580', y: 225 }
                 ],
-                candles: [
-                    // 上涨阶段
-                    { x: 32, high: 200, low: 230, open: 210, close: 225, isUp: true },
-                    { x: 62, high: 180, low: 210, open: 190, close: 205, isUp: true },
-                    { x: 92, high: 150, low: 185, open: 160, close: 180, isUp: true },
-                    // 震荡阶段
-                    { x: 122, high: 130, low: 165, open: 135, close: 160, isUp: false },
-                    { x: 152, high: 125, low: 160, open: 155, close: 130, isUp: true },
-                    { x: 182, high: 130, low: 165, open: 135, close: 160, isUp: false },
-                    { x: 212, high: 120, low: 155, open: 150, close: 125, isUp: true },
-                    // 下跌阶段
-                    { x: 242, high: 135, low: 170, open: 140, close: 165, isUp: false },
-                    { x: 272, high: 150, low: 185, open: 155, close: 180, isUp: false },
-                    { x: 302, high: 120, low: 150, open: 145, close: 125, isUp: true }
-                ],
-                deltas: [
-                    { x: 26, height: 20, isUp: true },
-                    { x: 56, height: 30, isUp: true },
-                    { x: 86, height: 42, isUp: true },
-                    { x: 116, height: 25, isUp: false },
-                    { x: 146, height: 22, isUp: true },
-                    { x: 176, height: 18, isUp: false },
-                    { x: 206, height: 20, isUp: true },
-                    { x: 236, height: 32, isUp: false },
-                    { x: 266, height: 40, isUp: false },
-                    { x: 296, height: 22, isUp: true }
-                ],
+                ...generateCandles(66, 180, 'upThenBoxThenDown'),
                 timeLabels: [
                     { x: 20, text: '-90天' },
                     { x: 120, text: '-45天' },
@@ -964,14 +957,6 @@
             const timeLabels = document.getElementById('timeLabels');
             
             let html = '';
-
-            // 阶段标注
-            data.stages.forEach(stage => {
-                html += `
-                    <rect x="${stage.x}" y="5" width="70" height="18" rx="4" fill="${stage.color}22"/>
-                    <text x="${stage.x + 6}" y="17" font-size="10" fill="${stage.color}">${stage.label}</text>
-                `;
-            });
 
             // 关键价格线
             data.keyPrices.forEach(kp => {
@@ -999,10 +984,10 @@
                 const gradient = c.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
                 const color = c.isUp ? '#2ed573' : '#ff4757';
                 const bodyTop = Math.min(c.open, c.close);
-                const bodyHeight = Math.abs(c.close - c.open);
+                const bodyHeight = Math.max(Math.abs(c.close - c.open), 3);
                 html += `
                     <line x1="${c.x}" y1="${c.high}" x2="${c.x}" y2="${c.low}" stroke="${color}" stroke-width="1"/>
-                    <rect x="${c.x - 6}" y="${bodyTop}" width="12" height="${bodyHeight}" rx="1" fill="${gradient}"/>
+                    <rect x="${c.x - 5}" y="${bodyTop}" width="10" height="${bodyHeight}" rx="1" fill="${gradient}"/>
                 `;
             });
 
@@ -1010,7 +995,7 @@
             data.deltas.forEach(d => {
                 const gradient = d.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
                 const y = d.isUp ? (280 - d.height) : 280;
-                html += `<rect x="${d.x}" y="${y}" width="12" height="${d.height}" rx="1" fill="${gradient}"/>`;
+                html += `<rect x="${d.x}" y="${y}" width="10" height="${d.height}" rx="1" fill="${gradient}"/>`;
             });
 
             dynamicContent.innerHTML = html;
