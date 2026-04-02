@@ -556,9 +556,9 @@
             </div>
         </div>
         <div class="time-tabs">
-            <div class="time-tab active" data-period="5d">5天内</div>
-            <div class="time-tab" data-period="2w">2周内</div>
-            <div class="time-tab" data-period="1m">1个月内</div>
+            <div class="time-tab active" data-period="5d">5天</div>
+            <div class="time-tab" data-period="1m">1个月</div>
+            <div class="time-tab" data-period="3m">3个月</div>
         </div>
     </div>
 
@@ -596,7 +596,7 @@
                 K线走势 & 关键价格 & Delta
             </div>
             <div class="chart-container">
-                <svg class="chart-svg" viewBox="0 0 360 440">
+                <svg class="chart-svg" id="chartSvg" viewBox="0 0 360 440">
                     <defs>
                         <linearGradient id="candleRed" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
@@ -620,158 +620,14 @@
                     <line x1="20" y1="220" x2="340" y2="220" stroke="#f0f0f0" stroke-width="1"/>
                     <line x1="20" y1="270" x2="340" y2="270" stroke="#f0f0f0" stroke-width="1"/>
                     
-                    <!-- 阶段标注 -->
-                    <rect x="20" y="5" width="80" height="18" rx="4" fill="rgba(46,213,115,0.15)"/>
-                    <text x="26" y="17" font-size="10" fill="#2ed573">📈 上升趋势</text>
-                    
-                    <rect x="110" y="5" width="70" height="18" rx="4" fill="rgba(255,193,7,0.15)"/>
-                    <text x="116" y="17" font-size="10" fill="#b8860b">📦 箱体震荡</text>
-                    
-                    <rect x="200" y="5" width="80" height="18" rx="4" fill="rgba(255,71,87,0.15)"/>
-                    <text x="206" y="17" font-size="10" fill="#ff4757">📉 下跌阶段</text>
-                    
-                    <!-- 关键价格线 - 阻力位1（上升趋势顶部） -->
-                    <line x1="20" y1="35" x2="340" y2="35" stroke="#ff4757" stroke-width="2" stroke-dasharray="6,4"/>
-                    <rect x="20" y="22" width="100" height="18" rx="4" fill="rgba(255,71,87,0.9)"/>
-                    <text x="26" y="34" font-size="11" fill="white">阻力 1780</text>
-                    
-                    <!-- 关键价格线 - 阻力位2（箱体顶部） -->
-                    <line x1="20" y1="85" x2="340" y2="85" stroke="#ff4757" stroke-width="1.5" stroke-dasharray="4,2"/>
-                    <rect x="20" y="72" width="100" height="18" rx="4" fill="rgba(255,71,87,0.8)"/>
-                    <text x="26" y="84" font-size="11" fill="white">箱顶 1728</text>
-                    
-                    <!-- 关键价格线 - 当前价格 -->
-                    <line x1="20" y1="135" x2="340" y2="135" stroke="#ff6b35" stroke-width="2" stroke-dasharray="4,2"/>
-                    <rect x="270" y="122" width="70" height="18" rx="4" fill="rgba(255,107,53,0.9)"/>
-                    <text x="276" y="134" font-size="11" fill="white">现价 1688</text>
-                    
-                    <!-- 关键价格线 - 支撑位1（箱体底部） -->
-                    <line x1="20" y1="185" x2="340" y2="185" stroke="#2ed573" stroke-width="1.5" stroke-dasharray="4,2"/>
-                    <rect x="20" y="172" width="100" height="18" rx="4" fill="rgba(46,213,115,0.8)"/>
-                    <text x="26" y="184" font-size="11" fill="white">箱底 1658</text>
-                    
-                    <!-- 关键价格线 - 支撑位2（前低） -->
-                    <line x1="20" y1="240" x2="340" y2="240" stroke="#2ed573" stroke-width="2" stroke-dasharray="6,4"/>
-                    <rect x="20" y="227" width="100" height="18" rx="4" fill="rgba(46,213,115,0.9)"/>
-                    <text x="26" y="239" font-size="11" fill="white">前低 1608</text>
-                    
-                    <!-- ==================== 第一阶段：上升趋势（左边） ==================== -->
-                    <!-- 第1根 - 启动 -->
-                    <line x1="32" y1="200" x2="32" y2="230" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="26" y="205" width="12" height="20" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第2根 - 继续上攻 -->
-                    <line x1="52" y1="185" x2="52" y2="215" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="46" y="188" width="12" height="24" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第3根 - 大阳线 -->
-                    <line x1="72" y1="155" x2="72" y2="195" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="66" y="160" width="12" height="32" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第4根 - 冲高回落 -->
-                    <line x1="92" y1="135" x2="92" y2="175" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="86" y="145" width="12" height="25" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第5根 - 再创新高 -->
-                    <line x1="112" y1="125" x2="112" y2="160" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="106" y="130" width="12" height="28" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- ==================== 第二阶段：箱体震荡（中间） ==================== -->
-                    <!-- 第6根 - 回落 -->
-                    <line x1="132" y1="130" x2="132" y2="170" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="126" y="140" width="12" height="25" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第7根 - 下探箱底 -->
-                    <line x1="152" y1="150" x2="152" y2="190" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="146" y="160" width="12" height="25" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第8根 - 探底回升 -->
-                    <line x1="172" y1="145" x2="172" y2="185" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="166" y="150" width="12" height="32" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第9根 - 反弹 -->
-                    <line x1="192" y1="125" x2="192" y2="160" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="186" y="130" width="12" height="28" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第10根 - 遇阻回落 -->
-                    <line x1="212" y1="120" x2="212" y2="155" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="206" y="128" width="12" height="24" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- ==================== 第三阶段：下跌阶段（右边） ==================== -->
-                    <!-- 第11根 - 破位下跌 -->
-                    <line x1="232" y1="135" x2="232" y2="180" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="226" y="145" width="12" height="32" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第12根 - 继续下探 -->
-                    <line x1="252" y1="150" x2="252" y2="195" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="246" y="160" width="12" height="32" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第13根 - 超跌反弹 -->
-                    <line x1="272" y1="145" x2="272" y2="185" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="266" y="152" width="12" height="30" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第14根 - 反弹遇阻 -->
-                    <line x1="292" y1="140" x2="292" y2="170" stroke="#ff4757" stroke-width="1"/>
-                    <rect x="286" y="145" width="12" height="22" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第15根（最新）- 窄幅整理 -->
-                    <line x1="312" y1="135" x2="312" y2="160" stroke="#2ed573" stroke-width="1"/>
-                    <rect x="306" y="138" width="12" height="20" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- ==================== Delta 红绿柱 ==================== -->
-                    <!-- 第1根 -->
-                    <rect x="26" y="270" width="12" height="12" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第2根 -->
-                    <rect x="46" y="262" width="12" height="18" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第3根 - Delta爆量 -->
-                    <rect x="66" y="240" width="12" height="40" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第4根 -->
-                    <rect x="86" y="280" width="12" height="25" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第5根 -->
-                    <rect x="106" y="258" width="12" height="22" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第6根 -->
-                    <rect x="126" y="280" width="12" height="20" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第7根 -->
-                    <rect x="146" y="280" width="12" height="28" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第8根 - 被动吸筹 -->
-                    <rect x="166" y="245" width="12" height="35" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第9根 -->
-                    <rect x="186" y="255" width="12" height="25" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第10根 -->
-                    <rect x="206" y="280" width="12" height="22" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第11根 - 恐慌抛售 -->
-                    <rect x="226" y="280" width="12" height="42" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第12根 -->
-                    <rect x="246" y="280" width="12" height="35" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第13根 - 超跌反弹 -->
-                    <rect x="266" y="242" width="12" height="38" rx="1" fill="url(#candleGreen)"/>
-                    
-                    <!-- 第14根 -->
-                    <rect x="286" y="280" width="12" height="18" rx="1" fill="url(#candleRed)"/>
-                    
-                    <!-- 第15根（最新） -->
-                    <rect x="306" y="265" width="12" height="15" rx="1" fill="url(#candleGreen)"/>
+                    <!-- 动态内容区域 -->
+                    <g id="dynamicContent"></g>
                     
                     <!-- Delta 零轴线 -->
                     <line x1="20" y1="280" x2="340" y2="280" stroke="#999" stroke-width="0.5"/>
                     
-                    <!-- 时间标签 -->
-                    <text x="20" y="435" font-size="10" fill="#999">-20天</text>
-                    <text x="120" y="435" font-size="10" fill="#999">-10天</text>
-                    <text x="220" y="435" font-size="10" fill="#999">-5天</text>
-                    <text x="305" y="435" font-size="10" fill="#ff6b35">今天</text>
+                    <!-- 时间标签（动态） -->
+                    <g id="timeLabels"></g>
                 </svg>
             </div>
         </div>
@@ -958,11 +814,224 @@
     </div>
 
     <script>
+        // 当前周期
+        let currentPeriod = '5d';
+
+        // 周期数据配置
+        const periodData = {
+            '5d': {
+                title: '下跌趋势',
+                stages: [
+                    { label: '📉 下跌', x: 20, color: '#ff4757' }
+                ],
+                keyPrices: [
+                    { price: 1750, type: 'resistance', label: '前高 1750', y: 35 },
+                    { price: 1720, type: 'resistance', label: '阻力 1720', y: 65 },
+                    { price: 1688, type: 'current', label: '现价 1688', y: 115 },
+                    { price: 1650, type: 'support', label: '支撑 1650', y: 170 },
+                    { price: 1600, type: 'support', label: '前低 1600', y: 235 }
+                ],
+                candles: [
+                    { x: 32, high: 100, low: 130, open: 105, close: 125, isUp: false },
+                    { x: 62, high: 115, low: 150, open: 120, close: 145, isUp: false },
+                    { x: 92, high: 135, low: 170, open: 140, close: 165, isUp: false },
+                    { x: 122, high: 150, low: 185, open: 160, close: 180, isUp: false },
+                    { x: 152, high: 160, low: 195, open: 170, close: 190, isUp: false },
+                    { x: 182, high: 150, low: 185, open: 180, close: 160, isUp: true },
+                    { x: 212, high: 145, low: 175, open: 155, close: 170, isUp: false },
+                    { x: 242, high: 130, low: 160, open: 150, close: 140, isUp: true },
+                    { x: 272, high: 115, low: 145, open: 135, close: 125, isUp: true },
+                    { x: 302, high: 110, low: 135, open: 120, close: 115, isUp: false }
+                ],
+                deltas: [
+                    { x: 26, height: 20, isUp: false },
+                    { x: 56, height: 30, isUp: false },
+                    { x: 86, height: 40, isUp: false },
+                    { x: 116, height: 35, isUp: false },
+                    { x: 146, height: 45, isUp: false },
+                    { x: 176, height: 28, isUp: true },
+                    { x: 206, height: 22, isUp: false },
+                    { x: 236, height: 25, isUp: true },
+                    { x: 266, height: 18, isUp: true },
+                    { x: 296, height: 15, isUp: false }
+                ],
+                timeLabels: [
+                    { x: 20, text: '-5天' },
+                    { x: 170, text: '-2天' },
+                    { x: 295, text: '今天' }
+                ]
+            },
+            '1m': {
+                title: '震荡箱体+下跌',
+                stages: [
+                    { label: '📦 箱体', x: 20, color: '#b8860b' },
+                    { label: '📉 下跌', x: 180, color: '#ff4757' }
+                ],
+                keyPrices: [
+                    { price: 1750, type: 'resistance', label: '箱顶 1750', y: 35 },
+                    { price: 1720, type: 'resistance', label: '阻力 1720', y: 65 },
+                    { price: 1688, type: 'current', label: '现价 1688', y: 115 },
+                    { price: 1650, type: 'support', label: '箱底 1650', y: 170 },
+                    { price: 1600, type: 'support', label: '前低 1600', y: 235 }
+                ],
+                candles: [
+                    // 箱体震荡阶段
+                    { x: 32, high: 80, low: 110, open: 85, close: 105, isUp: false },
+                    { x: 62, high: 75, low: 105, open: 100, close: 80, isUp: true },
+                    { x: 92, high: 70, low: 100, open: 75, close: 95, isUp: false },
+                    { x: 122, high: 65, low: 95, open: 90, close: 70, isUp: true },
+                    { x: 152, high: 80, low: 110, open: 75, close: 105, isUp: false },
+                    { x: 182, high: 70, low: 100, open: 100, close: 75, isUp: true },
+                    // 下跌阶段
+                    { x: 212, high: 90, low: 125, open: 95, close: 120, isUp: false },
+                    { x: 242, high: 110, low: 145, open: 115, close: 140, isUp: false },
+                    { x: 272, high: 125, low: 160, open: 130, close: 155, isUp: false },
+                    { x: 302, high: 115, low: 145, open: 150, close: 120, isUp: true }
+                ],
+                deltas: [
+                    { x: 26, height: 18, isUp: false },
+                    { x: 56, height: 22, isUp: true },
+                    { x: 86, height: 15, isUp: false },
+                    { x: 116, height: 20, isUp: true },
+                    { x: 146, height: 25, isUp: false },
+                    { x: 176, height: 18, isUp: true },
+                    { x: 206, height: 30, isUp: false },
+                    { x: 236, height: 38, isUp: false },
+                    { x: 266, height: 42, isUp: false },
+                    { x: 296, height: 25, isUp: true }
+                ],
+                timeLabels: [
+                    { x: 20, text: '-30天' },
+                    { x: 170, text: '-15天' },
+                    { x: 295, text: '今天' }
+                ]
+            },
+            '3m': {
+                title: '上涨+震荡+下跌',
+                stages: [
+                    { label: '📈 上涨', x: 20, color: '#2ed573' },
+                    { label: '📦 震荡', x: 120, color: '#b8860b' },
+                    { label: '📉 下跌', x: 230, color: '#ff4757' }
+                ],
+                keyPrices: [
+                    { price: 1820, type: 'resistance', label: '前高 1820', y: 25 },
+                    { price: 1780, type: 'resistance', label: '阻力 1780', y: 55 },
+                    { price: 1720, type: 'resistance', label: '箱顶 1720', y: 85 },
+                    { price: 1688, type: 'current', label: '现价 1688', y: 125 },
+                    { price: 1650, type: 'support', label: '箱底 1650', y: 165 },
+                    { price: 1580, type: 'support', label: '起涨点 1580', y: 225 }
+                ],
+                candles: [
+                    // 上涨阶段
+                    { x: 32, high: 200, low: 230, open: 210, close: 225, isUp: true },
+                    { x: 62, high: 180, low: 210, open: 190, close: 205, isUp: true },
+                    { x: 92, high: 150, low: 185, open: 160, close: 180, isUp: true },
+                    // 震荡阶段
+                    { x: 122, high: 130, low: 165, open: 135, close: 160, isUp: false },
+                    { x: 152, high: 125, low: 160, open: 155, close: 130, isUp: true },
+                    { x: 182, high: 130, low: 165, open: 135, close: 160, isUp: false },
+                    { x: 212, high: 120, low: 155, open: 150, close: 125, isUp: true },
+                    // 下跌阶段
+                    { x: 242, high: 135, low: 170, open: 140, close: 165, isUp: false },
+                    { x: 272, high: 150, low: 185, open: 155, close: 180, isUp: false },
+                    { x: 302, high: 120, low: 150, open: 145, close: 125, isUp: true }
+                ],
+                deltas: [
+                    { x: 26, height: 20, isUp: true },
+                    { x: 56, height: 30, isUp: true },
+                    { x: 86, height: 42, isUp: true },
+                    { x: 116, height: 25, isUp: false },
+                    { x: 146, height: 22, isUp: true },
+                    { x: 176, height: 18, isUp: false },
+                    { x: 206, height: 20, isUp: true },
+                    { x: 236, height: 32, isUp: false },
+                    { x: 266, height: 40, isUp: false },
+                    { x: 296, height: 22, isUp: true }
+                ],
+                timeLabels: [
+                    { x: 20, text: '-90天' },
+                    { x: 120, text: '-45天' },
+                    { x: 230, text: '-15天' },
+                    { x: 295, text: '今天' }
+                ]
+            }
+        };
+
+        // 渲染图表
+        function renderChart(period) {
+            const data = periodData[period];
+            const dynamicContent = document.getElementById('dynamicContent');
+            const timeLabels = document.getElementById('timeLabels');
+            
+            let html = '';
+
+            // 阶段标注
+            data.stages.forEach(stage => {
+                html += `
+                    <rect x="${stage.x}" y="5" width="70" height="18" rx="4" fill="${stage.color}22"/>
+                    <text x="${stage.x + 6}" y="17" font-size="10" fill="${stage.color}">${stage.label}</text>
+                `;
+            });
+
+            // 关键价格线
+            data.keyPrices.forEach(kp => {
+                const color = kp.type === 'resistance' ? '#ff4757' : 
+                              kp.type === 'support' ? '#2ed573' : '#ff6b35';
+                const dashArray = kp.type === 'current' ? '4,2' : '6,4';
+                html += `
+                    <line x1="20" y1="${kp.y}" x2="340" y2="${kp.y}" stroke="${color}" stroke-width="2" stroke-dasharray="${dashArray}"/>
+                    <rect x="20" y="${kp.y - 13}" width="85" height="18" rx="4" fill="${color}"/>
+                    <text x="26" y="${kp.y - 1}" font-size="11" fill="white">${kp.label}</text>
+                `;
+            });
+
+            // 当前价格标签放右边
+            const currentKP = data.keyPrices.find(kp => kp.type === 'current');
+            if (currentKP) {
+                html += `
+                    <rect x="265" y="${currentKP.y - 13}" width="75" height="18" rx="4" fill="#ff6b35"/>
+                    <text x="271" y="${currentKP.y - 1}" font-size="11" fill="white">现价 1688</text>
+                `;
+            }
+
+            // 蜡烛图
+            data.candles.forEach(c => {
+                const gradient = c.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
+                const color = c.isUp ? '#2ed573' : '#ff4757';
+                const bodyTop = Math.min(c.open, c.close);
+                const bodyHeight = Math.abs(c.close - c.open);
+                html += `
+                    <line x1="${c.x}" y1="${c.high}" x2="${c.x}" y2="${c.low}" stroke="${color}" stroke-width="1"/>
+                    <rect x="${c.x - 6}" y="${bodyTop}" width="12" height="${bodyHeight}" rx="1" fill="${gradient}"/>
+                `;
+            });
+
+            // Delta柱
+            data.deltas.forEach(d => {
+                const gradient = d.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
+                const y = d.isUp ? (280 - d.height) : 280;
+                html += `<rect x="${d.x}" y="${y}" width="12" height="${d.height}" rx="1" fill="${gradient}"/>`;
+            });
+
+            dynamicContent.innerHTML = html;
+
+            // 时间标签
+            let timeHtml = '';
+            data.timeLabels.forEach(tl => {
+                const color = tl.text === '今天' ? '#ff6b35' : '#999';
+                const weight = tl.text === '今天' ? 'bold' : 'normal';
+                timeHtml += `<text x="${tl.x}" y="435" font-size="10" fill="${color}" font-weight="${weight}">${tl.text}</text>`;
+            });
+            timeLabels.innerHTML = timeHtml;
+        }
+
         // 时间周期切换
         document.querySelectorAll('.time-tab').forEach(tab => {
             tab.addEventListener('click', function() {
                 document.querySelectorAll('.time-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
+                currentPeriod = this.dataset.period;
+                renderChart(currentPeriod);
             });
         });
 
@@ -987,6 +1056,9 @@
                 }
             });
         });
+
+        // 初始化渲染
+        renderChart('5d');
     </script>
 </body>
 </html>
