@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5;
+            background: #f0f0f0;
             color: #333;
             max-width: 430px;
             margin: 0 auto;
@@ -22,9 +22,9 @@
 
         /* 顶部导航 */
         .header {
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            background: #e63946;
             color: white;
-            padding: 16px;
+            padding: 12px 16px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -34,87 +34,140 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .back-btn {
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
         }
 
-        .header-title {
-            font-size: 18px;
+        .stock-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .stock-name {
+            font-size: 20px;
             font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .stock-code-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stock-code {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        .stock-tag {
+            background: rgba(255,255,255,0.25);
+            padding: 1px 6px;
+            border-radius: 3px;
+            font-size: 11px;
         }
 
         .header-actions {
             display: flex;
-            gap: 16px;
+            gap: 20px;
+            font-size: 20px;
         }
 
         /* 股票信息 */
         .stock-info {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-start;
+            padding: 8px 0;
         }
 
-        .stock-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .stock-code {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        .stock-price {
-            text-align: right;
+        .price-left {
+            display: flex;
+            flex-direction: column;
         }
 
         .price-current {
-            font-size: 28px;
+            font-size: 36px;
             font-weight: bold;
+            line-height: 1.1;
         }
 
         .price-up {
-            color: #ff4757;
+            color: #e63946;
         }
 
         .price-down {
-            color: #2ed573;
+            color: #2a9d8f;
         }
 
         .price-change {
+            font-size: 16px;
+            margin-top: 6px;
+        }
+
+        .price-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
             font-size: 14px;
-            margin-top: 4px;
+        }
+
+        .price-item {
+            display: flex;
+        }
+
+        .price-label {
+            color: #666;
+            margin-right: 8px;
+        }
+
+        .price-value.up {
+            color: #e63946;
+        }
+
+        .price-value.down {
+            color: #2a9d8f;
         }
 
         /* 时间周期切换 */
         .time-tabs {
             display: flex;
-            background: rgba(255,255,255,0.15);
-            border-radius: 8px;
-            padding: 4px;
-            margin-top: 12px;
+            background: white;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .time-tab {
             flex: 1;
             text-align: center;
-            padding: 8px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 8px 4px;
+            font-size: 15px;
             cursor: pointer;
-            transition: all 0.2s;
+            color: #666;
+            position: relative;
         }
 
         .time-tab.active {
-            background: white;
-            color: #ff6b35;
+            color: #e63946;
             font-weight: 600;
+        }
+
+        .time-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: #e63946;
+            border-radius: 2px;
         }
 
         /* 主要内容区 */
@@ -125,26 +178,24 @@
         /* 卡片通用样式 */
         .card {
             background: white;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 12px 16px;
+            margin-bottom: 8px;
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .card-title .icon {
-            width: 4px;
-            height: 16px;
-            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            width: 3px;
+            height: 14px;
+            background: #e63946;
             border-radius: 2px;
         }
 
@@ -193,11 +244,10 @@
         /* K线图 + Keyzone */
         .chart-container {
             height: 460px;
-            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
-            border-radius: 8px;
+            background: #ffffff;
             position: relative;
             overflow: hidden;
-            padding: 16px;
+            padding: 8px 16px;
         }
 
         .chart-svg {
@@ -537,25 +587,55 @@
     <div class="header">
         <div class="header-top">
             <div class="back-btn">←</div>
-            <div class="header-title">订单流盯盘分析</div>
+            <div class="stock-header">
+                <div class="stock-name">贵州茅台</div>
+                <div class="stock-code-wrap">
+                    <span class="stock-code">600519</span>
+                    <span class="stock-tag">沪</span>
+                </div>
+            </div>
             <div class="header-actions">
-                <span>⋮</span>
+                <span>👤</span>
+                <span>🔍</span>
             </div>
         </div>
         <div class="stock-info">
-            <div>
-                <div class="stock-name">
-                    贵州茅台
-                    <span class="tag tag-hot">热门</span>
-                </div>
-                <div class="stock-code">600519.SH</div>
+            <div class="price-left">
+                <div class="price-current price-up">1688.00</div>
+                <div class="price-change price-up">+28.50 +1.72%</div>
             </div>
-            <div class="stock-price">
-                <div class="price-current price-up">1,688.00</div>
-                <div class="price-change price-up">+28.50 (+1.72%)</div>
+            <div class="price-right">
+                <div class="price-item">
+                    <span class="price-label">高</span>
+                    <span class="price-value up">1715.00</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">市值</span>
+                    <span class="price-value">2.12万亿</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">低</span>
+                    <span class="price-value down">1652.00</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">流通</span>
+                    <span class="price-value">2.12万亿</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">开</span>
+                    <span class="price-value up">1665.00</span>
+                </div>
+                <div class="price-item">
+                    <span class="price-label">换手</span>
+                    <span class="price-value">0.32%</span>
+                </div>
             </div>
         </div>
-        <div class="time-tabs">
+    </div>
+
+    <!-- 时间周期切换 -->
+    <div style="background: white; padding: 0 16px;">
+        <div class="time-tabs" style="margin: 0; padding: 8px 0;">
             <div class="time-tab active" data-period="5d">5天</div>
             <div class="time-tab" data-period="1m">1个月</div>
             <div class="time-tab" data-period="3m">3个月</div>
@@ -599,26 +679,26 @@
                 <svg class="chart-svg" id="chartSvg" viewBox="0 0 360 440">
                     <defs>
                         <linearGradient id="candleRed" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color:#e63946;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#e63946;stop-opacity:1" />
                         </linearGradient>
                         <linearGradient id="candleGreen" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#51cf66;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#2ed573;stop-opacity:1" />
+                            <stop offset="0%" style="stop-color:#2a9d8f;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2a9d8f;stop-opacity:1" />
                         </linearGradient>
                     </defs>
                     
                     <!-- 分隔线 -->
-                    <line x1="20" y1="280" x2="340" y2="280" stroke="#e0e0e0" stroke-width="1"/>
+                    <line x1="20" y1="280" x2="340" y2="280" stroke="#e5e5e5" stroke-width="1"/>
                     <text x="26" y="292" font-size="11" fill="#999">Delta</text>
                     
-                    <!-- K线部分网格线 -->
-                    <line x1="20" y1="20" x2="340" y2="20" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="70" x2="340" y2="70" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="120" x2="340" y2="120" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="170" x2="340" y2="170" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="220" x2="340" y2="220" stroke="#f0f0f0" stroke-width="1"/>
-                    <line x1="20" y1="270" x2="340" y2="270" stroke="#f0f0f0" stroke-width="1"/>
+                    <!-- K线部分网格线（浅灰色虚线） -->
+                    <line x1="20" y1="20" x2="340" y2="20" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="20" y1="70" x2="340" y2="70" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="20" y1="120" x2="340" y2="120" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="20" y1="170" x2="340" y2="170" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="20" y1="220" x2="340" y2="220" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
+                    <line x1="20" y1="270" x2="340" y2="270" stroke="#e8e8e8" stroke-width="1" stroke-dasharray="4,4"/>
                     
                     <!-- 动态内容区域 -->
                     <g id="dynamicContent"></g>
@@ -960,13 +1040,13 @@
 
             // 关键价格线
             data.keyPrices.forEach(kp => {
-                const color = kp.type === 'resistance' ? '#ff4757' : 
-                              kp.type === 'support' ? '#2ed573' : '#ff6b35';
-                const dashArray = kp.type === 'current' ? '4,2' : '6,4';
+                const color = kp.type === 'resistance' ? '#e63946' : 
+                              kp.type === 'support' ? '#2a9d8f' : '#e63946';
+                const dashArray = kp.type === 'current' ? '3,3' : '5,3';
                 html += `
-                    <line x1="20" y1="${kp.y}" x2="340" y2="${kp.y}" stroke="${color}" stroke-width="2" stroke-dasharray="${dashArray}"/>
-                    <rect x="20" y="${kp.y - 13}" width="85" height="18" rx="4" fill="${color}"/>
-                    <text x="26" y="${kp.y - 1}" font-size="11" fill="white">${kp.label}</text>
+                    <line x1="20" y1="${kp.y}" x2="340" y2="${kp.y}" stroke="${color}" stroke-width="1.5" stroke-dasharray="${dashArray}"/>
+                    <rect x="20" y="${kp.y - 12}" width="78" height="16" rx="2" fill="${color}"/>
+                    <text x="25" y="${kp.y}" font-size="10" fill="white">${kp.label}</text>
                 `;
             });
 
@@ -974,20 +1054,20 @@
             const currentKP = data.keyPrices.find(kp => kp.type === 'current');
             if (currentKP) {
                 html += `
-                    <rect x="265" y="${currentKP.y - 13}" width="75" height="18" rx="4" fill="#ff6b35"/>
-                    <text x="271" y="${currentKP.y - 1}" font-size="11" fill="white">现价 1688</text>
+                    <rect x="270" y="${currentKP.y - 12}" width="68" height="16" rx="2" fill="#e63946"/>
+                    <text x="275" y="${currentKP.y}" font-size="10" fill="white">现价 1688</text>
                 `;
             }
 
-            // 蜡烛图
+            // 蜡烛图（同花顺风格：红色跌，绿色涨）
             data.candles.forEach(c => {
                 const gradient = c.isUp ? 'url(#candleGreen)' : 'url(#candleRed)';
-                const color = c.isUp ? '#2ed573' : '#ff4757';
+                const color = c.isUp ? '#2a9d8f' : '#e63946';
                 const bodyTop = Math.min(c.open, c.close);
                 const bodyHeight = Math.max(Math.abs(c.close - c.open), 3);
                 html += `
                     <line x1="${c.x}" y1="${c.high}" x2="${c.x}" y2="${c.low}" stroke="${color}" stroke-width="1"/>
-                    <rect x="${c.x - 5}" y="${bodyTop}" width="10" height="${bodyHeight}" rx="1" fill="${gradient}"/>
+                    <rect x="${c.x - 4}" y="${bodyTop}" width="8" height="${bodyHeight}" rx="0" fill="${gradient}"/>
                 `;
             });
 
