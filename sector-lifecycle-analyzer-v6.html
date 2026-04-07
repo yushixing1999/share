@@ -19,9 +19,25 @@
             display: flex;
         }
 
-        /* 左侧说明面板 */
+        /* 主内容区 - 原型功能页面 */
+        .main-container {
+            flex: 1;
+            max-width: 430px;
+            min-width: 375px;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        /* 分隔空间 */
+        .divider-space {
+            width: 40px;
+            background: #f0f2f5;
+            flex-shrink: 0;
+        }
+
+        /* 右侧说明面板 */
         .help-sidebar {
-            width: 320px;
+            width: 340px;
             background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
             color: white;
             padding: 20px;
@@ -1003,131 +1019,7 @@
     </style>
 </head>
 <body>
-    <!-- 左侧说明面板 -->
-    <div class="help-sidebar">
-        <div class="help-sidebar-title">
-            📖 原型说明
-        </div>
-
-        <!-- 使用步骤 -->
-        <div class="help-sidebar-section">
-            <div class="help-sidebar-section-title">
-                <div class="dot"></div>
-                使用步骤
-            </div>
-            <div class="help-step-list">
-                <div class="help-step">
-                    <div class="help-step-number">1</div>
-                    <div class="help-step-content">
-                        <div class="help-step-title">搜索或浏览板块</div>
-                        <div class="help-step-desc">在主内容区搜索板块名称，或浏览按强度评分排序的板块列表。</div>
-                    </div>
-                </div>
-                <div class="help-step">
-                    <div class="help-step-number">2</div>
-                    <div class="help-step-content">
-                        <div class="help-step-title">识别真假热点</div>
-                        <div class="help-step-desc">查看板块标签，识别"真热点"和"假热点"，避免权重拉指数、单票涨停的假热点。</div>
-                    </div>
-                </div>
-                <div class="help-step">
-                    <div class="help-step-number">3</div>
-                    <div class="help-step-content">
-                        <div class="help-step-title">查看板块详情</div>
-                        <div class="help-step-desc">点击任意板块进入详情页，查看强度评分、持续性评分、当前生命周期阶段。</div>
-                    </div>
-                </div>
-                <div class="help-step">
-                    <div class="help-step-number">4</div>
-                    <div class="help-step-content">
-                        <div class="help-step-title">判断进场时机</div>
-                        <div class="help-step-desc">查看"我现在进去还来得及吗？"的提示，了解当前阶段是否适合进场。</div>
-                    </div>
-                </div>
-                <div class="help-step">
-                    <div class="help-step-number">5</div>
-                    <div class="help-step-content">
-                        <div class="help-step-title">选择对应个股</div>
-                        <div class="help-step-desc">根据当前阶段，在"阶段机会"Tab中选择对应的个股类型，查看具体个股列表。</div>
-                    </div>
-                </div>
-            </div>
-            <div class="help-tip">
-                <div class="help-tip-title">
-                    💡 提示
-                </div>
-                <div class="help-tip-desc">
-                    不同阶段适合买不同类型的股票：启动买首板、确认买龙头、发酵买龙头+中军、高潮买低位补涨、分歧买修复、退潮不参与！
-                </div>
-            </div>
-        </div>
-
-        <!-- 核心功能 -->
-        <div class="help-sidebar-section">
-            <div class="help-sidebar-section-title">
-                <div class="dot"></div>
-                核心功能
-            </div>
-            <div class="help-feature-list">
-                <div class="help-feature">
-                    <div class="help-feature-name">🎯 强度评分排序</div>
-                    <div class="help-feature-desc">不再按传统涨幅排序，而是按强度评分（个股权重、涨停数量、资金力度、联动效应）综合排序，找到真热点。</div>
-                </div>
-                <div class="help-feature">
-                    <div class="help-feature-name">✅ 真假热点识别</div>
-                    <div class="help-feature-desc">自动识别"权重拉指数"、"单票涨停"的假热点，标注"真热点"标签，避免接盘。</div>
-                </div>
-                <div class="help-feature">
-                    <div class="help-feature-name">📊 双评分系统</div>
-                    <div class="help-feature-desc">强度评分 + 持续性评分，从"现在有多强"和"能强多久"两个维度综合判断板块质量。</div>
-                </div>
-                <div class="help-feature">
-                    <div class="help-feature-name">🔄 6阶段生命周期</div>
-                    <div class="help-feature-desc">启动→确认→发酵→高潮→分歧→退潮，清晰展示板块当前所处阶段，判断进场时机。</div>
-                </div>
-                <div class="help-feature">
-                    <div class="help-feature-name">📋 分阶段个股推荐</div>
-                    <div class="help-feature-desc">不同阶段推荐不同类型个股，自动锚定"阶段机会"Tab，告诉你当前应该买什么。</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 生命周期说明 -->
-        <div class="help-sidebar-section">
-            <div class="help-sidebar-section-title">
-                <div class="dot"></div>
-                生命周期6阶段
-            </div>
-            <div class="help-lifecycle-list">
-                <div class="help-lifecycle-item">
-                    <span class="help-lifecycle-icon">🌱</span>
-                    <span class="help-lifecycle-name">启动阶段 - 买首板</span>
-                </div>
-                <div class="help-lifecycle-item">
-                    <span class="help-lifecycle-icon">✨</span>
-                    <span class="help-lifecycle-name">确认阶段 - 买龙头</span>
-                </div>
-                <div class="help-lifecycle-item">
-                    <span class="help-lifecycle-icon">🔥</span>
-                    <span class="help-lifecycle-name">发酵阶段 - 买龙头+中军</span>
-                </div>
-                <div class="help-lifecycle-item">
-                    <span class="help-lifecycle-icon">⚡</span>
-                    <span class="help-lifecycle-name">高潮阶段 - 买低位补涨</span>
-                </div>
-                <div class="help-lifecycle-item">
-                    <span class="help-lifecycle-icon">💥</span>
-                    <span class="help-lifecycle-name">分歧阶段 - 买修复</span>
-                </div>
-                <div class="help-lifecycle-item">
-                    <span class="help-lifecycle-icon">🌊</span>
-                    <span class="help-lifecycle-name">退潮阶段 - 不参与</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 主内容区 -->
+    <!-- 主内容区 - 原型功能页面（左边） -->
     <div class="main-container">
         <!-- 板块列表页 -->
         <div class="page active" id="listPage">
@@ -2122,5 +2014,133 @@
         // 初始化
         init();
     </script>
+</div>
+
+<!-- 分隔空间 -->
+<div class="divider-space"></div>
+
+<!-- 右侧说明面板 -->
+<div class="help-sidebar">
+    <div class="help-sidebar-title">
+        📖 原型说明
+    </div>
+
+    <!-- 使用步骤 -->
+    <div class="help-sidebar-section">
+        <div class="help-sidebar-section-title">
+            <div class="dot"></div>
+            使用步骤
+        </div>
+        <div class="help-step-list">
+            <div class="help-step">
+                <div class="help-step-number">1</div>
+                <div class="help-step-content">
+                    <div class="help-step-title">搜索或浏览板块</div>
+                    <div class="help-step-desc">在主内容区搜索板块名称，或浏览按强度评分排序的板块列表。</div>
+                </div>
+            </div>
+            <div class="help-step">
+                <div class="help-step-number">2</div>
+                <div class="help-step-content">
+                    <div class="help-step-title">识别真假热点</div>
+                    <div class="help-step-desc">查看板块标签，识别"真热点"和"假热点"，避免权重拉指数、单票涨停的假热点。</div>
+                </div>
+            </div>
+            <div class="help-step">
+                <div class="help-step-number">3</div>
+                <div class="help-step-content">
+                    <div class="help-step-title">查看板块详情</div>
+                    <div class="help-step-desc">点击任意板块进入详情页，查看强度评分、持续性评分、当前生命周期阶段。</div>
+                </div>
+            </div>
+            <div class="help-step">
+                <div class="help-step-number">4</div>
+                <div class="help-step-content">
+                    <div class="help-step-title">判断进场时机</div>
+                    <div class="help-step-desc">查看"我现在进去还来得及吗？"的提示，了解当前阶段是否适合进场。</div>
+                </div>
+            </div>
+            <div class="help-step">
+                <div class="help-step-number">5</div>
+                <div class="help-step-content">
+                    <div class="help-step-title">选择对应个股</div>
+                    <div class="help-step-desc">根据当前阶段，在"阶段机会"Tab中选择对应的个股类型，查看具体个股列表。</div>
+                </div>
+            </div>
+        </div>
+        <div class="help-tip">
+            <div class="help-tip-title">
+                💡 提示
+            </div>
+            <div class="help-tip-desc">
+                不同阶段适合买不同类型的股票：启动买首板、确认买龙头、发酵买龙头+中军、高潮买低位补涨、分歧买修复、退潮不参与！
+            </div>
+        </div>
+    </div>
+
+    <!-- 核心功能 -->
+    <div class="help-sidebar-section">
+        <div class="help-sidebar-section-title">
+            <div class="dot"></div>
+            核心功能
+        </div>
+        <div class="help-feature-list">
+            <div class="help-feature">
+                <div class="help-feature-name">🎯 强度评分排序</div>
+                <div class="help-feature-desc">不再按传统涨幅排序，而是按强度评分（个股权重、涨停数量、资金力度、联动效应）综合排序，找到真热点。</div>
+            </div>
+            <div class="help-feature">
+                <div class="help-feature-name">✅ 真假热点识别</div>
+                <div class="help-feature-desc">自动识别"权重拉指数"、"单票涨停"的假热点，标注"真热点"标签，避免接盘。</div>
+            </div>
+            <div class="help-feature">
+                <div class="help-feature-name">📊 双评分系统</div>
+                <div class="help-feature-desc">强度评分 + 持续性评分，从"现在有多强"和"能强多久"两个维度综合判断板块质量。</div>
+            </div>
+            <div class="help-feature">
+                <div class="help-feature-name">🔄 6阶段生命周期</div>
+                <div class="help-feature-desc">启动→确认→发酵→高潮→分歧→退潮，清晰展示板块当前所处阶段，判断进场时机。</div>
+            </div>
+            <div class="help-feature">
+                <div class="help-feature-name">📋 分阶段个股推荐</div>
+                <div class="help-feature-desc">不同阶段推荐不同类型个股，自动锚定"阶段机会"Tab，告诉你当前应该买什么。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 生命周期说明 -->
+    <div class="help-sidebar-section">
+        <div class="help-sidebar-section-title">
+            <div class="dot"></div>
+            生命周期6阶段
+        </div>
+        <div class="help-lifecycle-list">
+            <div class="help-lifecycle-item">
+                <span class="help-lifecycle-icon">🌱</span>
+                <span class="help-lifecycle-name">启动阶段 - 买首板</span>
+            </div>
+            <div class="help-lifecycle-item">
+                <span class="help-lifecycle-icon">✨</span>
+                <span class="help-lifecycle-name">确认阶段 - 买龙头</span>
+            </div>
+            <div class="help-lifecycle-item">
+                <span class="help-lifecycle-icon">🔥</span>
+                <span class="help-lifecycle-name">发酵阶段 - 买龙头+中军</span>
+            </div>
+            <div class="help-lifecycle-item">
+                <span class="help-lifecycle-icon">⚡</span>
+                <span class="help-lifecycle-name">高潮阶段 - 买低位补涨</span>
+            </div>
+            <div class="help-lifecycle-item">
+                <span class="help-lifecycle-icon">💥</span>
+                <span class="help-lifecycle-name">分歧阶段 - 买修复</span>
+            </div>
+            <div class="help-lifecycle-item">
+                <span class="help-lifecycle-icon">🌊</span>
+                <span class="help-lifecycle-name">退潮阶段 - 不参与</span>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
