@@ -2027,7 +2027,7 @@
             displayTypes.forEach((type, displayIndex) => {
                 const isRecommended = phase.recommendedTypes.includes(type.key);
                 tabsHtml += `
-                    <div class="stock-tab ${displayIndex === activeStockTab ? 'active' : ''} ${isRecommended ? 'recommended' : ''}" onclick="switchStockTab('${type.key}', ${displayIndex})">
+                    <div class="stock-tab ${displayIndex === activeStockTab ? 'active' : ''} ${isRecommended ? 'recommended' : ''}" onclick="switchStockTab(${displayIndex})">
                         ${type.name}
                     </div>
                 `;
@@ -2069,7 +2069,7 @@
                 }
                 
                 contentsHtml += `
-                    <div class="stock-tab-content ${displayIndex === activeStockTab ? 'active' : ''}" id="stockTabContent${type.key}" data-key="${type.key}">
+                    <div class="stock-tab-content ${displayIndex === activeStockTab ? 'active' : ''}">
                         ${stocksHtml}
                     </div>
                 `;
@@ -2077,10 +2077,9 @@
             document.getElementById('stockTabContents').innerHTML = contentsHtml;
         }
 
-        // 切换个股Tab（更新，支持key和displayIndex）
-        function switchStockTab(typeKey, displayIndex) {
+        // 切换个股Tab
+        function switchStockTab(displayIndex) {
             activeStockTab = displayIndex;
-            const phase = phases[currentPhaseIndex];
             
             // 更新Tab样式
             const tabs = document.querySelectorAll('.stock-tab');
@@ -2094,35 +2093,8 @@
             
             // 更新内容显示
             const contents = document.querySelectorAll('.stock-tab-content');
-            contents.forEach((content) => {
-                const dataKey = content.getAttribute('data-key');
-                if (dataKey === typeKey) {
-                    content.classList.add('active');
-                } else {
-                    content.classList.remove('active');
-                }
-            });
-        }
-
-        // 切换个股Tab
-        function switchStockTab(index) {
-            activeStockTab = index;
-            const phase = phases[currentPhaseIndex];
-            
-            // 更新Tab样式
-            const tabs = document.querySelectorAll('.stock-tab');
-            tabs.forEach((tab, i) => {
-                if (i === index) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-            
-            // 更新内容显示
-            const contents = document.querySelectorAll('.stock-tab-content');
             contents.forEach((content, i) => {
-                if (i === index) {
+                if (i === displayIndex) {
                     content.classList.add('active');
                 } else {
                     content.classList.remove('active');
