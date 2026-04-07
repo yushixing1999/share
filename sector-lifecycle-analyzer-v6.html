@@ -1606,193 +1606,160 @@
             }
         ];
 
+        // 所有股票分类定义（每个阶段都展示所有分类）
+        const allStockTypes = [
+            {
+                key: 'first',
+                name: '首板试盘个股',
+                tag: 'first',
+                desc: '率先上板，带动板块',
+                stocks: [
+                    { name: '先锋电子', code: '000001', change: '+10.01%', up: true },
+                    { name: '探索科技', code: '000002', change: '+9.98%', up: true },
+                    { name: '创新医疗', code: '000003', change: '+9.95%', up: true },
+                    { name: '先行股份', code: '000004', change: '+9.92%', up: true },
+                    { name: '开路者A', code: '000005', change: '+9.89%', up: true }
+                ]
+            },
+            {
+                key: 'leader',
+                name: '龙头高度个股',
+                tag: 'leader',
+                desc: '连板打空间，市场关注度最高',
+                stocks: [
+                    { name: '剑桥科技', code: '603083', change: '+10.01%', up: true },
+                    { name: '科信技术', code: '300565', change: '+9.98%', up: true },
+                    { name: '中际旭创', code: '300308', change: '+8.76%', up: true },
+                    { name: '新易盛', code: '300502', change: '+7.52%', up: true },
+                    { name: '天孚通信', code: '300394', change: '+6.89%', up: true }
+                ]
+            },
+            {
+                key: 'main',
+                name: '中军趋势个股',
+                tag: 'main',
+                desc: '大市值，趋势上涨，稳定军心',
+                stocks: [
+                    { name: '科大讯飞', code: '002230', change: '+7.56%', up: true },
+                    { name: '海康威视', code: '002415', change: '+6.23%', up: true },
+                    { name: '寒武纪', code: '688256', change: '+5.87%', up: true },
+                    { name: '商汤集团', code: '00020', change: '+4.98%', up: true },
+                    { name: '云从科技', code: '688327', change: '+4.12%', up: true },
+                    { name: '格灵深瞳', code: '688207', change: '+3.87%', up: true },
+                    { name: '虹软科技', code: '688088', change: '+3.45%', up: true },
+                    { name: '奥比中光', code: '688322', change: '+2.98%', up: true }
+                ]
+            },
+            {
+                key: 'follow',
+                name: '跟风助攻个股',
+                tag: 'follow',
+                desc: '紧跟龙头上涨，烘托板块氛围',
+                stocks: [
+                    { name: '拓维信息', code: '002261', change: '+6.82%', up: true },
+                    { name: '常山北明', code: '000158', change: '+5.98%', up: true },
+                    { name: '润和软件', code: '300339', change: '+5.45%', up: true },
+                    { name: '诚迈科技', code: '300598', change: '+4.87%', up: true },
+                    { name: '宝兰德', code: '688058', change: '+4.23%', up: true }
+                ]
+            },
+            {
+                key: 'supplement',
+                name: '低位补涨个股',
+                tag: 'supplement',
+                desc: '位置低，涨幅空间大（一波流）',
+                stocks: [
+                    { name: '低位补涨A', code: '000001', change: '+10.02%', up: true },
+                    { name: '低位补涨B', code: '000002', change: '+9.98%', up: true },
+                    { name: '低位补涨C', code: '000003', change: '+9.95%', up: true },
+                    { name: '低位补涨D', code: '000004', change: '+9.90%', up: true },
+                    { name: '低位补涨E', code: '000005', change: '+9.85%', up: true }
+                ]
+            },
+            {
+                key: 'repair',
+                name: '分歧修复个股',
+                tag: 'repair',
+                desc: '烂板弱转强 + 反包涨停',
+                stocks: [
+                    { name: '修复龙头A', code: '000001', change: '+10.01%', up: true },
+                    { name: '反包个股B', code: '000002', change: '+9.87%', up: true },
+                    { name: '弱转强C', code: '000003', change: '+9.76%', up: true },
+                    { name: '修复龙头D', code: '000004', change: '+9.65%', up: true },
+                    { name: '反包个股E', code: '000005', change: '+9.54%', up: true },
+                    { name: '弱转强F', code: '000006', change: '+9.43%', up: true }
+                ]
+            },
+            {
+                key: 'seize',
+                name: '卡位龙头个股',
+                tag: 'seize',
+                desc: '龙头分歧时，卡位上位',
+                stocks: [
+                    { name: '卡位龙A', code: '000003', change: '+10.00%', up: true },
+                    { name: '卡位龙B', code: '000004', change: '+9.95%', up: true },
+                    { name: '卡位龙C', code: '000005', change: '+9.90%', up: true },
+                    { name: '卡位龙D', code: '000006', change: '+9.85%', up: true }
+                ]
+            }
+        ];
+
         // 生命周期阶段数据
         const phases = [
             {
                 id: 0,
                 name: '启动阶段',
                 icon: '🌱',
-                desc: '市场刚经历下跌，资金情绪犹豫，新题材首板试盘。这个阶段涨幅小，在传统排名里排后面，但性价比最高！适合买：首板试盘个股。',
+                desc: '市场刚经历下跌，资金情绪犹豫，新题材首板试盘。这个阶段涨幅小，在传统排名里排后面，但性价比最高！',
                 question: '我现在进去还来得及吗？',
                 suggestion: '来得及！启动阶段是性价比最高的阶段，但需要慧眼识别真热点',
                 danger: false,
                 ebb: false,
-                stockTypes: [
-                    {
-                        key: 'first',
-                        name: '首板试盘个股',
-                        tag: 'first',
-                        desc: '率先上板，带动板块',
-                        recommended: true,
-                        stocks: [
-                            { name: '先锋电子', code: '000001', change: '+10.01%', up: true },
-                            { name: '探索科技', code: '000002', change: '+9.98%', up: true },
-                            { name: '创新医疗', code: '000003', change: '+9.95%', up: true },
-                            { name: '先行股份', code: '000004', change: '+9.92%', up: true },
-                            { name: '开路者A', code: '000005', change: '+9.89%', up: true }
-                        ]
-                    }
-                ]
+                recommendedTypes: ['first'] // 该阶段推荐的分类
             },
             {
                 id: 1,
                 name: '确认阶段',
                 icon: '✨',
-                desc: '出现换手2板，龙头初步确立。确定性比启动阶段高！适合买：龙头高度个股。',
+                desc: '出现换手2板，龙头初步确立。确定性比启动阶段高！',
                 question: '我现在进去还来得及吗？',
                 suggestion: '来得及！确认阶段确定性高，是龙头确立的关键时期',
                 danger: false,
                 ebb: false,
-                stockTypes: [
-                    {
-                        key: 'leader',
-                        name: '龙头高度个股',
-                        tag: 'leader',
-                        desc: '2板确认，初步确立龙头地位',
-                        recommended: true,
-                        stocks: [
-                            { name: '剑桥科技', code: '603083', change: '+10.01%', up: true },
-                            { name: '科信技术', code: '300565', change: '+9.98%', up: true },
-                            { name: '中际旭创', code: '300308', change: '+8.76%', up: true },
-                            { name: '新易盛', code: '300502', change: '+7.52%', up: true },
-                            { name: '天孚通信', code: '300394', change: '+6.89%', up: true }
-                        ]
-                    }
-                ]
+                recommendedTypes: ['leader']
             },
             {
                 id: 2,
                 name: '发酵阶段',
                 icon: '🔥',
-                desc: '龙头打开空间，板块联动明显，可能爆发涨停潮。最佳参与窗口！适合买：龙头高度个股 + 中军趋势个股 + 跟风助攻个股。',
+                desc: '龙头打开空间，板块联动明显，可能爆发涨停潮。最佳参与窗口！',
                 question: '我现在进去还来得及吗？',
                 suggestion: '来得及！当前是最佳参与窗口，重点关注龙头和中军',
                 danger: false,
                 ebb: false,
-                stockTypes: [
-                    {
-                        key: 'leader',
-                        name: '龙头高度个股',
-                        tag: 'leader',
-                        desc: '连板打空间，市场关注度最高',
-                        recommended: true,
-                        stocks: [
-                            { name: '剑桥科技', code: '603083', change: '+10.01%', up: true },
-                            { name: '科信技术', code: '300565', change: '+9.98%', up: true },
-                            { name: '中际旭创', code: '300308', change: '+8.76%', up: true },
-                            { name: '新易盛', code: '300502', change: '+7.52%', up: true },
-                            { name: '天孚通信', code: '300394', change: '+6.89%', up: true }
-                        ]
-                    },
-                    {
-                        key: 'main',
-                        name: '中军趋势个股',
-                        tag: 'main',
-                        desc: '大市值，趋势上涨，稳定军心',
-                        recommended: true,
-                        stocks: [
-                            { name: '科大讯飞', code: '002230', change: '+7.56%', up: true },
-                            { name: '海康威视', code: '002415', change: '+6.23%', up: true },
-                            { name: '寒武纪', code: '688256', change: '+5.87%', up: true },
-                            { name: '商汤集团', code: '00020', change: '+4.98%', up: true },
-                            { name: '云从科技', code: '688327', change: '+4.12%', up: true },
-                            { name: '格灵深瞳', code: '688207', change: '+3.87%', up: true },
-                            { name: '虹软科技', code: '688088', change: '+3.45%', up: true },
-                            { name: '奥比中光', code: '688322', change: '+2.98%', up: true }
-                        ]
-                    },
-                    {
-                        key: 'follow',
-                        name: '跟风助攻个股',
-                        tag: 'follow',
-                        desc: '紧跟龙头上涨，烘托板块氛围',
-                        recommended: false,
-                        stocks: [
-                            { name: '拓维信息', code: '002261', change: '+6.82%', up: true },
-                            { name: '常山北明', code: '000158', change: '+5.98%', up: true },
-                            { name: '润和软件', code: '300339', change: '+5.45%', up: true },
-                            { name: '诚迈科技', code: '300598', change: '+4.87%', up: true },
-                            { name: '宝兰德', code: '688058', change: '+4.23%', up: true }
-                        ]
-                    }
-                ]
+                recommendedTypes: ['leader', 'main']
             },
             {
                 id: 3,
                 name: '高潮阶段',
                 icon: '⚡',
-                desc: '资金预期高度一致，频繁缩量涨停。但风险已经很高！适合买：低位补涨个股（谨慎参与）。',
+                desc: '资金预期高度一致，频繁缩量涨停。但风险已经很高！',
                 question: '我现在进去还来得及吗？',
                 suggestion: '⚠️ 不太建议！高潮阶段风险大于收益，容易追高被套',
                 danger: true,
                 ebb: false,
-                stockTypes: [
-                    {
-                        key: 'leader',
-                        name: '龙头高度个股',
-                        tag: 'leader',
-                        desc: '缩量加速，风险积聚（谨慎）',
-                        recommended: false,
-                        stocks: [
-                            { name: '剑桥科技', code: '603083', change: '+10.01%', up: true },
-                            { name: '科信技术', code: '300565', change: '+9.98%', up: true }
-                        ]
-                    },
-                    {
-                        key: 'supplement',
-                        name: '低位补涨个股',
-                        tag: 'supplement',
-                        desc: '位置低，涨幅空间大（一波流）',
-                        recommended: true,
-                        stocks: [
-                            { name: '低位补涨A', code: '000001', change: '+10.02%', up: true },
-                            { name: '低位补涨B', code: '000002', change: '+9.98%', up: true },
-                            { name: '低位补涨C', code: '000003', change: '+9.95%', up: true },
-                            { name: '低位补涨D', code: '000004', change: '+9.90%', up: true },
-                            { name: '低位补涨E', code: '000005', change: '+9.85%', up: true }
-                        ]
-                    }
-                ]
+                recommendedTypes: ['supplement']
             },
             {
                 id: 4,
                 name: '分歧阶段',
                 icon: '💥',
-                desc: '强连板状态减弱，容易炸板潮。但也有修复机会！适合买：分歧修复个股（烂板弱转强 + 反包）。',
+                desc: '强连板状态减弱，容易炸板潮。但也有修复机会！',
                 question: '我现在进去还来得及吗？',
                 suggestion: '可以尝试！但要精选，重点做烂板弱转强，控制仓位',
                 danger: false,
                 ebb: false,
-                stockTypes: [
-                    {
-                        key: 'repair',
-                        name: '分歧修复个股',
-                        tag: 'repair',
-                        desc: '烂板弱转强 + 反包涨停',
-                        recommended: true,
-                        stocks: [
-                            { name: '修复龙头A', code: '000001', change: '+10.01%', up: true },
-                            { name: '反包个股B', code: '000002', change: '+9.87%', up: true },
-                            { name: '弱转强C', code: '000003', change: '+9.76%', up: true },
-                            { name: '修复龙头D', code: '000004', change: '+9.65%', up: true },
-                            { name: '反包个股E', code: '000005', change: '+9.54%', up: true },
-                            { name: '弱转强F', code: '000006', change: '+9.43%', up: true }
-                        ]
-                    },
-                    {
-                        key: 'seize',
-                        name: '卡位龙头个股',
-                        tag: 'seize',
-                        desc: '龙头分歧时，卡位上位',
-                        recommended: false,
-                        stocks: [
-                            { name: '卡位龙A', code: '000003', change: '+10.00%', up: true },
-                            { name: '卡位龙B', code: '000004', change: '+9.95%', up: true },
-                            { name: '卡位龙C', code: '000005', change: '+9.90%', up: true },
-                            { name: '卡位龙D', code: '000006', change: '+9.85%', up: true }
-                        ]
-                    }
-                ]
+                recommendedTypes: ['repair']
             },
             {
                 id: 5,
@@ -1803,7 +1770,7 @@
                 suggestion: '❌ 不要参与！退潮阶段风险极高，建议空仓观望，等待下个周期',
                 danger: true,
                 ebb: true,
-                stockTypes: []
+                recommendedTypes: []
             }
         ];
 
@@ -2047,18 +2014,20 @@
             stockTypesCard.style.display = 'block';
             activeStockTab = 0;
             
-            // 找到推荐的tab索引
-            phase.stockTypes.forEach((type, index) => {
-                if (type.recommended) {
-                    activeStockTab = index;
-                }
-            });
+            // 把推荐的分类放前面，其他分类放后面
+            const recommendedTypes = allStockTypes.filter(t => phase.recommendedTypes.includes(t.key));
+            const otherTypes = allStockTypes.filter(t => !phase.recommendedTypes.includes(t.key));
+            const displayTypes = [...recommendedTypes, ...otherTypes];
+            
+            // 找到推荐的tab索引（现在是第一个）
+            activeStockTab = 0;
             
             // 渲染Tab
             let tabsHtml = '';
-            phase.stockTypes.forEach((type, index) => {
+            displayTypes.forEach((type, displayIndex) => {
+                const isRecommended = phase.recommendedTypes.includes(type.key);
                 tabsHtml += `
-                    <div class="stock-tab ${index === activeStockTab ? 'active' : ''} ${type.recommended ? 'recommended' : ''}" onclick="switchStockTab(${index})">
+                    <div class="stock-tab ${displayIndex === activeStockTab ? 'active' : ''} ${isRecommended ? 'recommended' : ''}" onclick="switchStockTab('${type.key}', ${displayIndex})">
                         ${type.name}
                     </div>
                 `;
@@ -2067,13 +2036,14 @@
             
             // 渲染Tab内容
             let contentsHtml = '';
-            phase.stockTypes.forEach((type, index) => {
+            displayTypes.forEach((type, displayIndex) => {
+                const isRecommended = phase.recommendedTypes.includes(type.key);
                 let stocksHtml = '';
                 if (type.stocks && type.stocks.length > 0) {
                     stocksHtml = '<div class="stock-list">';
                     type.stocks.forEach((stock, stockIndex) => {
                         stocksHtml += `
-                            <div class="stock-item ${type.recommended && stockIndex === 0 ? 'recommended' : ''}">
+                            <div class="stock-item ${isRecommended && stockIndex === 0 ? 'recommended' : ''}">
                                 <div class="stock-left">
                                     <div class="stock-name-row">
                                         <span class="stock-type-tag ${type.tag}">${type.name}</span>
@@ -2099,12 +2069,39 @@
                 }
                 
                 contentsHtml += `
-                    <div class="stock-tab-content ${index === activeStockTab ? 'active' : ''}" id="stockTabContent${index}">
+                    <div class="stock-tab-content ${displayIndex === activeStockTab ? 'active' : ''}" id="stockTabContent${type.key}" data-key="${type.key}">
                         ${stocksHtml}
                     </div>
                 `;
             });
             document.getElementById('stockTabContents').innerHTML = contentsHtml;
+        }
+
+        // 切换个股Tab（更新，支持key和displayIndex）
+        function switchStockTab(typeKey, displayIndex) {
+            activeStockTab = displayIndex;
+            const phase = phases[currentPhaseIndex];
+            
+            // 更新Tab样式
+            const tabs = document.querySelectorAll('.stock-tab');
+            tabs.forEach((tab, i) => {
+                if (i === displayIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            // 更新内容显示
+            const contents = document.querySelectorAll('.stock-tab-content');
+            contents.forEach((content) => {
+                const dataKey = content.getAttribute('data-key');
+                if (dataKey === typeKey) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
         }
 
         // 切换个股Tab
