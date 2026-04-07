@@ -1025,11 +1025,8 @@
         <div class="page active" id="listPage">
             <!-- 顶部导航 -->
             <div class="header">
-                <div class="header-top">
-                    <div class="header-title">热点板块</div>
-                    <div class="header-actions">
-                        <div class="header-action" onclick="showScoreExplain()">❓</div>
-                    </div>
+                <div class="header-top" style="justify-content: center;">
+                    <div class="header-title">热点识金</div>
                 </div>
                 <!-- 搜索栏 -->
                 <div class="search-bar">
@@ -1085,8 +1082,8 @@
             <!-- 顶部导航 -->
             <div class="header" id="detailHeader">
                 <div class="header-top">
-                    <div class="back-btn show" onclick="goBackToList()">← 返回</div>
-                    <div class="header-title" id="detailTitle">板块详情</div>
+                    <div class="back-btn show" onclick="goBackToList()">首页</div>
+                    <div class="header-title" id="detailTitle">热点详情</div>
                     <div class="header-actions">
                         <div class="header-action" onclick="showScoreExplain()">❓</div>
                     </div>
@@ -1781,9 +1778,6 @@
             if (!currentSector) return;
             
             currentPhaseIndex = currentSector.currentPhase;
-            
-            // 更新页面标题
-            document.getElementById('detailTitle').textContent = currentSector.name;
             
             // 更新板块信息栏
             const infoBar = document.getElementById('sectorInfoBar');
