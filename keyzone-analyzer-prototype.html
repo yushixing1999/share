@@ -148,16 +148,6 @@
             border-radius: 2px;
         }
 
-        /* 分时图容器 */
-        .chart-container {
-            height: 380px;
-            background: #ffffff;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            padding: 8px 12px;
-        }
-
         /* 标签 */
         .tag {
             display: inline-block;
@@ -179,6 +169,319 @@
         .tag-monitor {
             background: #e8fff3;
             color: #2ed573;
+        }
+
+        /* 分时图容器 */
+        .chart-container {
+            height: 380px;
+            background: #ffffff;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            padding: 8px 12px;
+        }
+
+        /* CVD 仪表盘 */
+        .cvd-dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .cvd-item {
+            background: linear-gradient(135deg, #fff5f0 0%, #fffbf0 100%);
+            border: 1px solid #ffd591;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+        }
+
+        .cvd-item.positive {
+            background: linear-gradient(135deg, #f6ffed 0%, #f0f9ff 100%);
+            border-color: #b7eb8f;
+        }
+
+        .cvd-item.negative {
+            background: linear-gradient(135deg, #fff2f0 0%, #fff1f0 100%);
+            border-color: #ffa39e;
+        }
+
+        .cvd-value {
+            font-size: 26px;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .cvd-value.positive {
+            color: #52c41a;
+        }
+
+        .cvd-value.negative {
+            color: #ff4d4f;
+        }
+
+        .cvd-label {
+            font-size: 13px;
+            color: #595959;
+            margin-bottom: 4px;
+        }
+
+        .cvd-change {
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+
+        .cvd-change.up {
+            color: #52c41a;
+        }
+
+        .cvd-change.down {
+            color: #ff4d4f;
+        }
+
+        /* 主买主卖饼图 */
+        .pie-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .pie-chart {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: conic-gradient(#52c41a 0deg 216deg, #ff4d4f 216deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .pie-center {
+            width: 65px;
+            height: 65px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pie-center-value {
+            font-size: 17px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+
+        .pie-center-label {
+            font-size: 11px;
+            color: #8c8c8c;
+        }
+
+        .pie-legend {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pie-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pie-legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+        }
+
+        .pie-legend-color.buy {
+            background: #52c41a;
+        }
+
+        .pie-legend-color.sell {
+            background: #ff4d4f;
+        }
+
+        .pie-legend-label {
+            font-size: 14px;
+            color: #595959;
+        }
+
+        .pie-legend-value {
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .pie-legend-value.buy {
+            color: #52c41a;
+        }
+
+        .pie-legend-value.sell {
+            color: #ff4d4f;
+        }
+
+        /* 主力意图识别 */
+        .intent-card {
+            background: linear-gradient(135deg, #f6ffed 0%, #f0f9ff 100%);
+            border: 1px solid #b7eb8f;
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .intent-card.warning {
+            background: linear-gradient(135deg, #fffbe6 0%, #fffbf0 100%);
+            border-color: #ffe58f;
+        }
+
+        .intent-card.danger {
+            background: linear-gradient(135deg, #fff2f0 0%, #fff1f0 100%);
+            border-color: #ffa39e;
+        }
+
+        .intent-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .intent-icon {
+            font-size: 22px;
+        }
+
+        .intent-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #262626;
+        }
+
+        .intent-tag {
+            margin-left: auto;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .intent-tag.attention {
+            background: #f6ffed;
+            color: #389e0d;
+        }
+
+        .intent-tag.careful {
+            background: #fffbe6;
+            color: #ad6800;
+        }
+
+        .intent-tag.warning {
+            background: #fff2f0;
+            color: #cf1322;
+        }
+
+        .intent-desc {
+            font-size: 13px;
+            color: #595959;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .intent-suggestion {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .intent-suggestion.attention {
+            color: #389e0d;
+        }
+
+        .intent-suggestion.careful {
+            color: #ad6800;
+        }
+
+        .intent-suggestion.warning {
+            color: #cf1322;
+        }
+
+        /* 大单列表 */
+        .big-order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .big-order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        .big-order-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .big-order-type {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .big-order-type.buy {
+            background: #f6ffed;
+            color: #389e0d;
+        }
+
+        .big-order-type.sell {
+            background: #fff2f0;
+            color: #cf1322;
+        }
+
+        .big-order-time {
+            font-size: 12px;
+            color: #8c8c8c;
+            margin-left: 8px;
+        }
+
+        .big-order-price {
+            font-size: 13px;
+            color: #595959;
+        }
+
+        .big-order-right {
+            text-align: right;
+        }
+
+        .big-order-amount {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .big-order-amount.buy {
+            color: #52c41a;
+        }
+
+        .big-order-amount.sell {
+            color: #ff4d4f;
+        }
+
+        .big-order-unit {
+            font-size: 12px;
+            color: #8c8c8c;
         }
 
         /* 关键价格列表 */
@@ -490,6 +793,75 @@
 
     <!-- 主要内容区 -->
     <div class="content">
+        <!-- CVD 实时仪表盘 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon"></div>
+                资金脉动 · CVD 仪表盘
+            </div>
+            <div class="cvd-dashboard">
+                <div class="cvd-item positive">
+                    <div class="cvd-value positive">+1,258</div>
+                    <div class="cvd-label">今日 CVD</div>
+                    <div class="cvd-change up">↑ +23.5%</div>
+                </div>
+                <div class="cvd-item positive">
+                    <div class="cvd-value positive">+586</div>
+                    <div class="cvd-label">大单 CVD</div>
+                    <div class="cvd-change up">↑ +18.2%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主买主卖占比 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon"></div>
+                主买主卖占比
+            </div>
+            <div class="pie-container">
+                <div class="pie-chart">
+                    <div class="pie-center">
+                        <div class="pie-center-value">60%</div>
+                        <div class="pie-center-label">主买占比</div>
+                    </div>
+                </div>
+                <div class="pie-legend">
+                    <div class="pie-legend-item">
+                        <div class="pie-legend-color buy"></div>
+                        <div class="pie-legend-label">主动买入</div>
+                        <div class="pie-legend-value buy">60%</div>
+                    </div>
+                    <div class="pie-legend-item">
+                        <div class="pie-legend-color sell"></div>
+                        <div class="pie-legend-label">主动卖出</div>
+                        <div class="pie-legend-value sell">40%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主力意图识别 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon"></div>
+                主力意图识别
+            </div>
+            <div class="intent-card">
+                <div class="intent-header">
+                    <span class="intent-icon">📈</span>
+                    <span class="intent-name">拉升模式</span>
+                    <span class="intent-tag attention">积极关注</span>
+                </div>
+                <div class="intent-desc">
+                    CVD 陡峭上升，量价齐升，主力资金持续流入，可能进入拉升阶段。
+                </div>
+                <div class="intent-suggestion attention">
+                    💡 建议：积极关注，考虑跟进
+                </div>
+            </div>
+        </div>
+
         <!-- 今日分时图 & 关键价格 & CVD -->
         <div class="card">
             <div class="card-title">
@@ -635,6 +1007,55 @@
                     <!-- 底背离标记 -->
                     <text x="250" y="355" font-size="10" fill="#2ed573">💡 底背离</text>
                 </svg>
+            </div>
+        </div>
+
+        <!-- 大单成交列表 -->
+        <div class="card">
+            <div class="card-title">
+                <div class="icon"></div>
+                大单成交
+            </div>
+            <div class="big-order-list">
+                <div class="big-order-item">
+                    <div class="big-order-left">
+                        <div>
+                            <span class="big-order-type buy">主动买入</span>
+                            <span class="big-order-time">14:32:15</span>
+                        </div>
+                        <div class="big-order-price">价格: 1685.50元</div>
+                    </div>
+                    <div class="big-order-right">
+                        <div class="big-order-amount buy">+258</div>
+                        <div class="big-order-unit">手</div>
+                    </div>
+                </div>
+                <div class="big-order-item">
+                    <div class="big-order-left">
+                        <div>
+                            <span class="big-order-type buy">主动买入</span>
+                            <span class="big-order-time">14:28:42</span>
+                        </div>
+                        <div class="big-order-price">价格: 1682.30元</div>
+                    </div>
+                    <div class="big-order-right">
+                        <div class="big-order-amount buy">+186</div>
+                        <div class="big-order-unit">手</div>
+                    </div>
+                </div>
+                <div class="big-order-item">
+                    <div class="big-order-left">
+                        <div>
+                            <span class="big-order-type sell">主动卖出</span>
+                            <span class="big-order-time">14:25:18</span>
+                        </div>
+                        <div class="big-order-price">价格: 1678.80元</div>
+                    </div>
+                    <div class="big-order-right">
+                        <div class="big-order-amount sell">-95</div>
+                        <div class="big-order-unit">手</div>
+                    </div>
+                </div>
             </div>
         </div>
 
