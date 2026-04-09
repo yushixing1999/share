@@ -12,23 +12,23 @@ def calculate_indicators(df):
     df = df.dropna(subset=['日期'])
     df = df.sort_values('日期').reset_index(drop=True)
     
-    # 1. 短周期 KDJ (7,3,3)
-    low7 = df['最低'].rolling(window=7, min_periods=1).min()
-    high7 = df['最高'].rolling(window=7, min_periods=1).max()
-    rsv = (df['收盘'] - low7) / (high7 - low7) * 100
+    # 1. 短周期 KDJ (9,3,3)
+    low9 = df['最低'].rolling(window=9, min_periods=1).min()
+    high9 = df['最高'].rolling(window=9, min_periods=1).max()
+    rsv = (df['收盘'] - low9) / (high9 - low9) * 100
     rsv = rsv.fillna(50)
     
     dxd = rsv.ewm(alpha=1/3, adjust=False).mean()  # SMA(RSV,3,1)
     dxk = dxd.ewm(alpha=1/3, adjust=False).mean()  # SMA(DXD,3,1)
     
-    # 2. 长周期 KDJ (38,5,10)
-    low38 = df['最低'].rolling(window=38, min_periods=1).min()
-    high38 = df['最高'].rolling(window=38, min_periods=1).max()
-    rsv1 = (df['收盘'] - low38) / (high38 - low38) * 100
+    # 2. 长周期 KDJ (21,3,5)
+    low21 = df['最低'].rolling(window=21, min_periods=1).min()
+    high21 = df['最高'].rolling(window=21, min_periods=1).max()
+    rsv1 = (df['收盘'] - low21) / (high21 - low21) * 100
     rsv1 = rsv1.fillna(50)
     
-    zxd = rsv1.ewm(alpha=1/5, adjust=False).mean()  # SMA(RSV1,5,1)
-    zxk = zxd.ewm(alpha=1/10, adjust=False).mean()  # SMA(ZXD,10,1)
+    zxd = rsv1.ewm(alpha=1/3, adjust=False).mean()  # SMA(RSV1,3,1)
+    zxk = zxd.ewm(alpha=1/5, adjust=False).mean()  # SMA(ZXD,5,1)
     
     # 3. ATR 和 ADX
     prev_close = df['收盘'].shift(1)
