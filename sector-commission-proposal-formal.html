@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>板块场景提佣转化产品初步方案 - 正式立项汇报版</title>
+  <style>
+    :root {
+      --bg: #f5f2ec;
+      --paper: #fffdfa;
+      --ink: #1f2523;
+      --sub: #5d6963;
+      --brand: #1b4f45;
+      --brand-soft: rgba(27, 79, 69, 0.08);
+      --accent: #9d6f3a;
+      --line: rgba(31, 37, 35, 0.1);
+      --shadow: 0 20px 52px rgba(37, 35, 32, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(157, 111, 58, 0.08), transparent 24%),
+        radial-gradient(circle at 100% 10%, rgba(27, 79, 69, 0.1), transparent 20%),
+        linear-gradient(180deg, #fbf9f5 0%, var(--bg) 100%);
+    }
+    .page {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+    .topline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--sub);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .topline .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+    .topline .brand::before {
+      content: "";
+      width: 36px;
+      height: 1px;
+      background: var(--ink);
+    }
+    .hero, .section {
+      background: rgba(255, 253, 250, 0.94);
+      border: 1px solid rgba(31, 37, 35, 0.08);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before, .section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.34), transparent 34%),
+        repeating-linear-gradient(90deg, transparent 0, transparent 31px, rgba(31, 37, 35, 0.018) 31px, rgba(31, 37, 35, 0.018) 32px);
+      pointer-events: none;
+    }
+    .hero {
+      padding: 44px;
+      margin-bottom: 22px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand);
+      border: 1px solid rgba(27, 79, 69, 0.12);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    h1, h2, h3, .display {
+      margin: 0;
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+      letter-spacing: -0.03em;
+    }
+    h1 {
+      margin-top: 22px;
+      font-size: clamp(40px, 5.4vw, 72px);
+      line-height: 1.02;
+      max-width: 10em;
+    }
+    .hero-subtitle {
+      margin-top: 20px;
+      max-width: 52rem;
+      color: var(--sub);
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.9;
+    }
+    .hero-highlight {
+      margin-top: 24px;
+      max-width: 48rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 18px;
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.8;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 34px;
+    }
+    .metric {
+      padding: 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+    .metric-label {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sub);
+    }
+    .metric-value {
+      margin-top: 10px;
+      font-family: "Songti SC", "STSong", serif;
+      font-size: 28px;
+      color: var(--brand);
+      line-height: 1.15;
+    }
+    .metric-note {
+      margin-top: 8px;
+      color: var(--sub);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .section {
+      padding: 30px;
+      margin-bottom: 20px;
+    }
+    .section-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 20px;
+    }
+    .section-kicker {
+      color: var(--brand);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.08;
+    }
+    .section-desc {
+      max-width: none;
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--sub);
+      line-height: 1.75;
+    }
+    .grid-3, .grid-2 {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 18px;
+    }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.52);
+    }
+    .card-index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+    .card p {
+      margin: 0;
+      color: var(--sub);
+      font-size: 15px;
+      line-height: 1.82;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      position: relative;
+      z-index: 1;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(31, 37, 35, 0.06);
+    }
+    .table th, .table td {
+      padding: 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(31, 37, 35, 0.08);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .table th {
+      background: rgba(27, 79, 69, 0.08);
+      color: var(--brand);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .table tr:last-child td { border-bottom: none; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--brand);
+      background: var(--brand-soft);
+    }
+    .closing {
+      position: relative;
+      z-index: 1;
+      padding: 24px 28px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.5);
+    }
+    .closing p {
+      margin: 0;
+      color: var(--sub);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+    .closing strong { color: var(--brand); }
+    @media (max-width: 1000px) {
+      .metrics, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .page { width: min(calc(100% - 24px), var(--max)); }
+      .hero, .section { padding: 24px; }
+      h1 { font-size: clamp(36px, 11vw, 54px); }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topline">
+      <div class="brand">Project Proposal</div>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow">板块场景提佣转化产品初步方案</div>
+      <h1>基于现有板块场景探索提佣付费产品转化</h1>
+      <p class="hero-subtitle">
+        当前板块功能主要解决“哪个板块涨了、热了”，但尚未充分承接更高价值的判断需求，
+        如板块是否属于真实热点、当前是否仍具参与价值，以及板块内应优先关注哪类个股。
+      </p>
+      <p class="hero-highlight">
+        本方案拟围绕“强度识别、阶段判断、个股分层”构建最小闭环，
+        探索在现有板块场景基础上延伸提佣付费产品的业务路径。
+      </p>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">目标用户</div>
+          <div class="metric-value">板块场景活跃用户</div>
+          <div class="metric-note">已使用板块场景功能，具备进一步转化基础。</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">核心能力</div>
+          <div class="metric-value">强度 + 阶段 + 分层</div>
+          <div class="metric-note">用于验证免费场景向付费产品的承接能力。</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">业务价值</div>
+          <div class="metric-value">提佣转化提升</div>
+          <div class="metric-note">增强场景承接深度，并为提佣业务提供空间。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Problem Definition</div>
+          <h2 class="section-title">一、核心问题定义</h2>
+        </div>
+        <p class="section-desc">从用户视角看，现有板块场景与提佣付费转化之间存在一条尚未被充分承接的需求链路。</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-index">01</div>
+          <h3>真假热点难识别</h3>
+          <p>传统板块排序容易受到权重拉升、单票异动等因素干扰，用户难以快速区分真实热点与短期噪音。</p>
+        </article>
+        <article class="card">
+          <div class="card-index">02</div>
+          <h3>参与时机难判断</h3>
+          <p>即使识别出强势板块，用户仍缺乏对启动、发酵、高潮、退潮等阶段的清晰判断。</p>
+        </article>
+        <article class="card">
+          <div class="card-index">03</div>
+          <h3>板块内选股难聚焦</h3>
+          <p>热点板块成分股众多，不同阶段适合关注的股票类型不同，用户缺少明确分层视角。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Solution</div>
+          <h2 class="section-title">二、产品解决方案</h2>
+        </div>
+        <p class="section-desc">围绕用户判断链路，形成可与提佣业务结合的付费产品能力框架。</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-index">A</div>
+          <h3>板块强度评分</h3>
+          <p>综合涨停数量、资金表现、联动性等维度，对板块进行优先级识别。</p>
+        </article>
+        <article class="card">
+          <div class="card-index">B</div>
+          <h3>板块阶段判断</h3>
+          <p>将板块状态映射为启动、发酵、高潮、分歧、退潮等阶段，辅助用户识别机会期与风险期。</p>
+        </article>
+        <article class="card">
+          <div class="card-index">C</div>
+          <h3>板块内个股分层</h3>
+          <p>围绕龙头、中军、跟风、补涨等类型进行展示，提升板块内选股效率。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Value</div>
+          <h2 class="section-title">三、产品价值</h2>
+        </div>
+        <p class="section-desc">该方案的核心价值在于基于现有板块场景提升付费承接能力，而非单纯增加信息量。</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>用户价值</h3>
+          <p>帮助用户更快识别真实热点、判断参与时机、聚焦重点个股，减少追高、误判和人工筛选成本。</p>
+        </article>
+        <article class="card">
+          <h3>业务价值</h3>
+          <p>推动现有板块场景向高价值提佣产品延伸，增强产品差异化，并为业务转化提供抓手。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">MVP Scope</div>
+          <h2 class="section-title">四、MVP 范围</h2>
+        </div>
+        <p class="section-desc">以最小可用闭环为原则，优先验证该场景是否具备提佣付费产品的延展空间。</p>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>模块</th>
+            <th>功能定义</th>
+            <th>价值体现</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">板块强度</span></td>
+            <td>对热点板块进行强弱排序与优先级识别</td>
+            <td>提升免费场景下的高价值内容感知</td>
+          </tr>
+          <tr>
+            <td><span class="tag">阶段判断</span></td>
+            <td>识别板块当前处于机会期还是风险期</td>
+            <td>提升用户对付费能力的需求感知</td>
+          </tr>
+          <tr>
+            <td><span class="tag">个股分层</span></td>
+            <td>围绕龙头、中军、跟风、补涨等类型进行展示</td>
+            <td>提升板块场景向付费产品的承接可能</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Validation</div>
+          <h2 class="section-title">五、验证逻辑</h2>
+        </div>
+        <p class="section-desc">该方向的成立性主要取决于是否具备区分度、使用价值与转化潜力。</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <div class="card-index">I</div>
+          <h3>历史区分度</h3>
+          <p>验证高分板块及阶段标签是否能够对历史热点表现形成有效区分。</p>
+        </article>
+        <article class="card">
+          <div class="card-index">II</div>
+          <h3>使用深度</h3>
+          <p>观察用户对板块详情、阶段信息和个股分层内容的关注度与停留时长。</p>
+        </article>
+        <article class="card">
+          <div class="card-index">III</div>
+          <h3>主观认可度</h3>
+          <p>验证用户是否将该能力视为有价值的付费产品，而非普通展示页面。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Conclusion</div>
+          <h2 class="section-title">六、结论</h2>
+        </div>
+        <p class="section-desc">该方向具备明确的用户需求基础、清晰的业务价值路径和可收敛的验证框架。</p>
+      </div>
+      <div class="closing">
+        <p>
+          <strong>板块场景提佣转化产品</strong>的核心意义，在于基于现有板块场景延伸更高价值的付费能力。
+          该方向若验证成立，有望在不改变原有场景价值的基础上，进一步提升转化效率并打开提佣业务空间。
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
